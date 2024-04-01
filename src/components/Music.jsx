@@ -93,7 +93,9 @@ export default function Music() {
           else alert('등록에 실패했습니다.')
         }
         else alert('등록에 실패했습니다.')
-      }}><Plus /></Button>
+      }}>
+        <Plus />
+      </Button>
 		</Wrap>
 	);
 }
@@ -111,6 +113,7 @@ const MusicBox = styled.div`
   justify-content: center;
   align-items: center;
   margin-block: 1rem;
+  z-index: -2;
 `
 
 const Title = styled.div`
@@ -133,6 +136,7 @@ const Button = styled.button`
   position: fixed;
   bottom: 2rem;
   right: 2rem;
+  z-index: -1;
 `
 
 const Thumb = styled.img`

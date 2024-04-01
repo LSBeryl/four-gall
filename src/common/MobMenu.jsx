@@ -31,7 +31,7 @@ export default function MobMenu(props) {
 		<MobMenuList style={{
 				display: props.open == 1 ? 'flex' : 'none'
 			}}>
-			<div style={{width: '100%', height: '100%', background: '#000', opacity: '0.85', position: 'absolute', right: '0', top: '0', zIndex: '1'}}></div>
+			<div style={{width: '100%', height: '100%', background: '#000', opacity: '0.85', position: 'absolute', right: '0', top: '0', zIndex: '2'}}></div>
 			<MenuLink to="/photo" style={{color: active == 1 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>사진</MenuLink>
 			<MenuLink to="/calender" style={{color: active == 2 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>시간표</MenuLink>
 			<MenuLink to="/link" style={{color: active == 3 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>각종 링크</MenuLink>
