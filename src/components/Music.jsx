@@ -64,19 +64,6 @@ export default function Music() {
 
 	return (
 		<Wrap>
-			{musicData.sort((a, b) => {
-          const timeA = a.creationTime ? a.creationTime.seconds : null;
-          const timeB = b.creationTime ? b.creationTime.seconds : null;
-          return timeB - timeA;
-        }).map(v => (
-        <MusicBox>
-          <Link to={v.src}>
-            <Thumb src={getImgUrl(v.src)} />
-          </Link>
-          <Title>{v.title}</Title>
-          <div><Name>{v.name}</Name>의 신청곡</div>
-        </MusicBox>
-      ))}
       <Button onClick={async () => {
         const name = prompt('신청자의 이름을 입력해주세요.')
         if(name != null) {
@@ -94,8 +81,21 @@ export default function Music() {
         }
         else alert('등록에 실패했습니다.')
       }}>
-        <Plus />
+        <Plus width="1.1rem" />
       </Button>
+			{musicData.sort((a, b) => {
+          const timeA = a.creationTime ? a.creationTime.seconds : null;
+          const timeB = b.creationTime ? b.creationTime.seconds : null;
+          return timeB - timeA;
+        }).map(v => (
+        <MusicBox>
+          <Link to={v.src}>
+            <Thumb src={getImgUrl(v.src)} />
+          </Link>
+          <Title>{v.title}</Title>
+          <div><Name>{v.name}</Name>의 신청곡</div>
+        </MusicBox>
+      ))}
 		</Wrap>
 	);
 }
@@ -129,8 +129,11 @@ const Name = styled.span`
 
 const Button = styled.button`
 	border: 0;
-  padding: 1rem 1.2rem;
-	border-radius: 100px;
+  padding: 1rem 1rem 0.8rem 1rem;
+	border-radius: 10px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  width: 20rem;
 	cursor: pointer;
   bottom: 2rem;
 `
