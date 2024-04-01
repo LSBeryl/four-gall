@@ -17,12 +17,12 @@ export default function Side() {
   }, [adNum])
 
   return (
-		<Wrap>
+		<Wrap style={{display: width1400 ? 'none' : ''}}>
       <Ad style={{float: 'left'}}>
-        <img src={'/img/ad/' + data[adNum].src} style={{display: width1400 ? 'none' : ''}} />
+        <img src={'/img/ad/' + data[adNum].src} />
       </Ad>
       <Ad style={{float: 'right'}}>
-        <img src={'/img/ad/' + data[adNum].src} style={{display: width1400 ? 'none' : ''}} />
+        <img src={'/img/ad/' + data[adNum].src} />
       </Ad>
     </Wrap>
 	);
