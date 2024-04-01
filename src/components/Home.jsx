@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { getDocs, collection, getDoc, doc, addDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase'
+import { GoogleLogin } from '@react-oauth/google'
 
 function formatTime(t) {
 	const wallTime = new Date(t)
@@ -18,6 +19,20 @@ export default function Home() {
 
 	const [msg, setMsg] = useState('NULL')
 	const [id, setId] = useState('NULL')
+
+	const [isLogin, setIsLogin] = useState(false)
+	const [userName, setUserName] = useState('noLogin')
+	const [userMail, setUserMail] = useState('noLogin')
+	
+	function decodeJwtResponse (token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+			var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+			}).join(''));
+
+			return JSON.parse(jsonPayload);
+	}
 
 	useEffect(() => {
 		async function fetchWallIds() {
@@ -76,35 +91,51 @@ export default function Home() {
 						<div style={{marginBottom: '2rem', textAlign: 'center'}}>
 							<span>담벼락 글 남기기</span>
 						</div>
-						<WallInputCon>
-							<div style={{
-								display: 'flex',
-								justifyContent: 'space-between'
-							}}>
-								<input type="text" placeholder='이름' onInput={(e) => {console.log(setId(e.target.value))}} />
-								<WallBtn onClick={async () => {
-									if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '') {
-										alert('내용을 입력해주세요!')
-									} else {
-										let pw = prompt('글 삭제를 위해 비밀번호를 입력해주세요.')
-										while(pw == null || pw == '') pw = prompt('다시 입력해주세요.') 
-										await addDoc(collection(db, "wall"), {
-											id: id,
-											msg: msg,
-											creationTime: new Date(),
-											pw: pw,
-											like: 0,
-											unlike: 0
-										});
-										location.reload(true)
-										alert('성공적으로 등록되었습니다.')
-									}
-								}}>글쓰기</WallBtn>
-							</div>
-							<div>
-								<input type="text" placeholder='남길 메시지' onInput={(e) => {console.log(setMsg(e.target.value))}} />
-							</div>
-						</WallInputCon>
+						{isLogin ?
+							<WallInputCon>
+								<div style={{
+									display: 'flex',
+									justifyContent: 'space-between'
+								}}>
+									<input type="text" placeholder='이름' onInput={(e) => {console.log(setId(e.target.value))}} />
+									<WallBtn onClick={async () => {
+										if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '') {
+											alert('내용을 입력해주세요!')
+										} else {
+											let pw = prompt('글 삭제를 위해 비밀번호를 입력해주세요.')
+											while(pw == null || pw == '') pw = prompt('다시 입력해주세요.') 
+											await addDoc(collection(db, "wall"), {
+												id: id,
+												msg: msg,
+												creationTime: new Date(),
+												pw: pw,
+												name: userName,
+												mail: userMail
+											});
+											location.reload(true)
+											alert('성공적으로 등록되었습니다.')
+										}
+									}}>글쓰기</WallBtn>
+								</div>
+								<div>
+									<input type="text" placeholder='남길 메시지' onInput={(e) => {console.log(setMsg(e.target.value))}} />
+								</div>
+							</WallInputCon>
+							:
+							<GoogleLogin
+								onSuccess={(res) => {
+									const responsePayload = decodeJwtResponse(res.credential);
+									setIsLogin(true)
+									setUserName(responsePayload.name)
+									setUserMail(responsePayload.email)
+								}}
+								onError={() => {
+									console.error("로그인 실패")
+								}}
+								width={'300px'}
+								useOneTap
+							/>
+						}
 					</div>
 				</WallCon>
 				<ShowCon>

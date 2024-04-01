@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.1",
     "@types/react-router-dom": "^5.3.3",
     "comcigan-parser": "^1.0.0",
     "comcigan-parser-edited": "^0.3.0",
