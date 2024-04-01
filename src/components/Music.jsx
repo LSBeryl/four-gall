@@ -113,7 +113,6 @@ const MusicBox = styled.div`
   justify-content: center;
   align-items: center;
   margin-block: 1rem;
-  z-index: -2;
 `
 
 const Title = styled.div`
@@ -133,10 +132,7 @@ const Button = styled.button`
   padding: 1rem 1.2rem;
 	border-radius: 100px;
 	cursor: pointer;
-  position: fixed;
   bottom: 2rem;
-  right: 2rem;
-  z-index: -1;
 `
 
 const Thumb = styled.img`
