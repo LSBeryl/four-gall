@@ -330,6 +330,7 @@ const WallMessage = styled.div`
   text-overflow: ellipsis;
   @media (max-width: 768px) {
     font-size: 1.3rem;
+		width: 80vw;
   }
 `
 
