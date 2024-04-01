@@ -103,7 +103,10 @@ export default function Home() {
 											alert('내용을 입력해주세요!')
 										} else {
 											let pw = prompt('글 삭제를 위해 비밀번호를 입력해주세요.')
-											while(pw == null || pw == '') pw = prompt('다시 입력해주세요.') 
+											while(pw == null || pw == '') {
+												alert('취소되었습니다.')
+												return 0
+											}
 											await addDoc(collection(db, "wall"), {
 												id: id,
 												msg: msg,
