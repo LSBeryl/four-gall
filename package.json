@@ -13,6 +13,7 @@
     "@types/react-router-dom": "^5.3.3",
     "comcigan-parser": "^1.0.0",
     "comcigan-parser-edited": "^0.3.0",
+    "dotenv": "^16.4.5",
     "firebase": "^10.9.0",
     "lucide-react": "^0.358.0",
     "react": "^18.2.0",

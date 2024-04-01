@@ -3,10 +3,16 @@ import { data } from './wall.json'
 import { useState } from 'react'
 
 function PhotoElement(props) {
+  const censor = ['fuck.jpg']
+
   return (
     <ElemCon>
       <ElemImgCon onClick={props.onClick}>
-        <img src={'/img/' + props.src} alt="" height="320px" style={{objectFit: 'cover'}} />
+        {censor.indexOf(props.src) != -1 ? 
+        <Censor>검열된 이미지입니다.<span style={{fontSize: '0.7rem'}}>클릭해서 보기</span></Censor>
+        :
+        <RealImg src={'/img/' + props.src} alt="" />
+        }
       </ElemImgCon>
       <ElemDesc>
         {props.desc}
@@ -70,7 +76,8 @@ const ElemCon = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  background: #f6f6f6;
+	background: #fff;
+	border: 1px solid #ebedef;
   border-radius: 10px;
   padding-bottom: 2rem;
 `
@@ -83,6 +90,15 @@ const ElemDesc = styled.div`
 
 const ElemImgCon = styled.div`
   cursor: pointer;
+`
+
+const RealImg = styled.img`
+  height: 360px;
+  border-radius: 10px;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
 `
 
 const ElemDate = styled.div``
@@ -109,4 +125,18 @@ const ModalContent = styled.div`
 	@media (max-width: 500px) {
 		max-width: 95vw;
 	}
+`
+
+const Censor = styled.div`
+  width: 230px;
+  height: 360px;
+  border-radius: 10px;
+  background: #424242;
+  color: #d6d6d6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 1rem;
 `

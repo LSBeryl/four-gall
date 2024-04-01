@@ -64,7 +64,8 @@ const Links = styled.div`
 `
 
 const LinkCon = styled(Link)`
-	background: #f6f6f6;
+	background: #fff;
+	border: 1px solid #ebedef;
 	padding: 2rem;
 	border-radius: 20px;
 	width: 20vw;

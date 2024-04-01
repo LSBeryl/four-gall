@@ -20,6 +20,9 @@ export default function MobMenu(props) {
 			case '/link':
 				setActive(3);
 				break;
+			case '/music':
+				setActive(4);
+				break;
 			default:
 				setActive(0);
 		}
@@ -32,6 +35,7 @@ export default function MobMenu(props) {
 			<MenuLink to="/photo" style={{color: active == 1 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>사진</MenuLink>
 			<MenuLink to="/calender" style={{color: active == 2 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>시간표</MenuLink>
 			<MenuLink to="/link" style={{color: active == 3 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>각종 링크</MenuLink>
+			<MenuLink to="/music" style={{color: active == 4 ? '#E3E3E3' : '#AAA', zIndex: '2'}}>음악 신청</MenuLink>
 		</MobMenuList>
 	)
 }

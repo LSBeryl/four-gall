@@ -10,22 +10,22 @@ import PCMenu from './PCMenu.jsx'
 export default function Header() {
 	const [open, setOpen] = useState(0)
 	const location = useLocation()
-
+6
 	useEffect(() => {
 		setOpen(0)
 	}, [location.pathname]);
 
-	const width500 = useMediaQuery({ query: '(max-width: 500px)' })
+	const width600 = useMediaQuery({ query: '(max-width: 600px)' })
 
   return (
 		<>
 			<List>
-				<LogoWrap style={{width: width500 ? '100%' : ''}}>
+				<LogoWrap style={{width: width600 ? '100%' : ''}}>
 					<Logo to="/"><Dimigo src={DimigoSrc} />KDMHS 2-4</Logo>
-					<Menu style={{display: width500 ? (open == 1 ? 'none' : 'inline') : 'none'}} onClick={() => {setOpen(1)}} />
-					<X color="#fff" style={{display: width500 ? (open == 1 ? 'inline' : 'none') : 'none', zIndex: '3'}} onClick={() => {setOpen(0)}}/>
+					<Menu style={{display: width600 ? (open == 1 ? 'none' : 'inline') : 'none'}} onClick={() => {setOpen(1)}} />
+					<X color="#fff" style={{display: width600 ? (open == 1 ? 'inline' : 'none') : 'none', zIndex: '3'}} onClick={() => {setOpen(0)}}/>
 				</LogoWrap>
-				{width500 ? <MobMenu open={open} /> : <PCMenu />}
+				{width600 ? <MobMenu open={open} /> : <PCMenu />}
 			</List>
 		</>
 	);
@@ -44,6 +44,8 @@ const List = styled.ul`
 	position: sticky;
 	top: 0;
 	backdrop-filter: blur(10px);
+	background: #ffffff5a;
+	border-bottom: 1px solid #dfdfdf6e;
 `
 
 const Logo = styled(Link)`
@@ -57,7 +59,7 @@ const Logo = styled(Link)`
 `
 
 const Dimigo = styled.img`
-height: 2rem;
+	height: 2rem;
 `
 
 const LogoWrap = styled.div`

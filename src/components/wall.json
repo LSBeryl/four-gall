@@ -27,7 +27,7 @@
     },
     {
       "src" : "fuck.jpg",
-      "desc" : "Yuck Fou",
+      "desc" : "Fuck You",
       "date" : "2024.03.20"
     },
     {
@@ -39,6 +39,46 @@
       "src" : "ddsgame.jpg",
       "desc" : "당.당.사 게임",
       "date" : "2024.03.20"
+    },
+    {
+      "src" : "brawl.jpg",
+      "desc" : "도박장",
+      "date" : "2024.03.22"
+    },
+    {
+      "src" : "anna.gif",
+      "desc" : "안나 헤드샷",
+      "date" : "2024.03.22"
+    },
+    {
+      "src" : "bookman.jpg",
+      "desc" : "문학소년 신현솔",
+      "date" : "2024.03.22"
+    },
+    {
+      "src" : "bigcream.jpg",
+      "desc" : "대왕 크림빵",
+      "date" : "2024.03.25"
+    },
+    {
+      "src" : "wc.jpg",
+      "desc" : "괴도우창",
+      "date" : "2024.03.26"
+    },
+    {
+      "src" : "sksk.jpg",
+      "desc" : "쌈@뽕한 석호",
+      "date" : "2024.03.27"
+    },
+    {
+      "src" : "broone.jpg",
+      "desc" : "브로맨스(1)",
+      "date" : "2024.03.29"
+    },
+    {
+      "src" : "brotwo.jpg",
+      "desc" : "브로맨스(2)",
+      "date" : "2024.03.29"
     }
   ]
 }

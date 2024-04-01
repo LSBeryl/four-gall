@@ -134,7 +134,7 @@ export default function Calender() {
 						<td style={{fontWeight: day == 5 ? 'bold' : ''}}>금</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 1 ? 'bold' : ''}}>1교시</td>
+						<td>1교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 1 && day == 1 ? '#ee1183' : ''
@@ -157,7 +157,7 @@ export default function Calender() {
 						}}>수1</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 2 ? 'bold' : ''}}>2교시</td>
+						<td>2교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 2 && day == 1 ? '#ee1183' : ''
@@ -180,7 +180,7 @@ export default function Calender() {
 						}}>수2</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 3 ? 'bold' : ''}}>3교시</td>
+						<td>3교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 3 && day == 1 ? '#ee1183' : ''
@@ -203,7 +203,7 @@ export default function Calender() {
 						}}>운동</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 4 ? 'bold' : ''}}>4교시</td>
+						<td>4교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 4 && day == 1 ? '#ee1183' : ''
@@ -226,7 +226,7 @@ export default function Calender() {
 						}}>중국</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 5 ? 'bold' : ''}}>5교시</td>
+						<td>5교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 5 && day == 1 ? '#ee1183' : ''
@@ -249,7 +249,7 @@ export default function Calender() {
 						}}>영1</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 6 ? 'bold' : ''}}>6교시</td>
+						<td>6교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 6 && day == 1 ? '#ee1183' : ''
@@ -272,7 +272,7 @@ export default function Calender() {
 						}}>문학</td>
 					</tr>
 					<tr>
-						<td style={{fontWeight: classTime == 7 ? 'bold' : ''}}>7교시</td>
+						<td>7교시</td>
 						<td style={{
 							fontWeight: day == 1 ? 'bold' : '',
 							color: classTime == 7 && day == 1 ? '#ee1183' : ''
@@ -316,13 +316,19 @@ const WhatShould = styled.div`
 
 const Table = styled.table`
 	font-size: 1.8rem;
-	background: #eaeaea;
+	background: #fff;
+	border: 1px solid #ebedef;
 	padding: 1rem;
 	border-radius: 20px;
 	& td {
 		padding: 1vw;
 	}
-	@media (max-width: 420px) {
+	@media (max-width: 768px) {
 		font-size: 1.3rem;
+		border-spacing: 0.2rem;
+	}
+	@media (max-width: 420px) {
+		font-size: 1rem;
+		border-spacing: 0.4rem;
 	}
 `

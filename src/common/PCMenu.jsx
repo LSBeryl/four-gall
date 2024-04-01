@@ -20,6 +20,9 @@ export default function PCMenu() {
 			case '/link':
 				setActive(3);
 				break;
+			case '/music':
+				setActive(4);
+				break;
 			default:
 				setActive(0);
 		}
@@ -29,6 +32,7 @@ export default function PCMenu() {
 			<MenuLink to="/photo" style={{color: active == 1 ? '#000' : ''}}>사진</MenuLink>
 			<MenuLink to="/calender" style={{color: active == 2 ? '#000' : ''}}>시간표</MenuLink>
 			<MenuLink to="/link" style={{color: active == 3 ? '#000' : ''}}>각종 링크</MenuLink>
+			<MenuLink to="/music" style={{color: active == 4 ? '#000' : ''}}>음악 신청</MenuLink>
 		</MenuList>
 	)
 }
