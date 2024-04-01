@@ -14,7 +14,7 @@ export default function MobMenu(props) {
 			case '/photo':
 				setActive(1);
 				break;
-			case '/calender':
+			case '/calendar':
 				setActive(2);
 				break;
 			case '/link':
