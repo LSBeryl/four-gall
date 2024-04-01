@@ -5,7 +5,7 @@ import App from "./App";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}
+  <GoogleOAuthProvider clientid={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}
       onScriptLoadError={() => console.error("Fail")}
       onScriptLoadSuccess={() => console.log("Success")}>
     <App />
