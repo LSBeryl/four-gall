@@ -123,6 +123,7 @@ export default function Home() {
 							</WallInputCon>
 							:
 							<GoogleLogin
+								clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}
 								onSuccess={(res) => {
 									const responsePayload = decodeJwtResponse(res.credential);
 									setIsLogin(true)
