@@ -131,7 +131,7 @@ export default function Home() {
 									setUserMail(responsePayload.email)
 								}}
 								onError={() => {
-									console.error("로그인 실패")
+									console.error("Login Failed")
 								}}
 								width={'300px'}
 								useOneTap
