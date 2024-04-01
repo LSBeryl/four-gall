@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 
-export default function Calender() {
+export default function Calendar() {
 	const [what, setWhat] = useState('')
 	const [day, setDay] = useState(-1)
 	const [classTime, setClassTime] = useState(1)

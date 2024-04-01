@@ -7,7 +7,7 @@ import Side from './common/Side.jsx'
 
 import Home from './components/Home.jsx'
 import Photo from './components/Photo.jsx'
-import Calender from './components/Calender.jsx'
+import Calendar from './components/Calendar.jsx'
 import LinkPage from './components/Link.jsx'
 import Music from './components/Music.jsx'
 
@@ -29,7 +29,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />}/>
           <Route path="/photo" element={<Photo />}/>
-          <Route path="/calender" element={<Calender />}/>
+          <Route path="/calendar" element={<Calendar />}/>
           <Route path="/link" element={<LinkPage />}/>
           <Route path="/music" element={<Music />}/>
         </Route>
