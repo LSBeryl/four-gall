@@ -91,7 +91,7 @@ export default function Home() {
 						<div style={{marginBottom: '2rem', textAlign: 'center'}}>
 							<span>담벼락 글 남기기</span>
 						</div>
-						{isLogin ?
+						{isLogin || localStorage.getItem('name') ?
 							<WallInputCon>
 								<div style={{
 									display: 'flex',
@@ -112,8 +112,8 @@ export default function Home() {
 												msg: msg,
 												creationTime: new Date(),
 												pw: pw,
-												name: userName,
-												mail: userMail
+												name: userName != 'noLogin' ? userName : localStorage.getItem('name'),
+												mail: userMail != 'noLogin' ? userMail : localStorage.getItem('email')
 											});
 											location.reload(true)
 											alert('성공적으로 등록되었습니다.')
@@ -132,6 +132,8 @@ export default function Home() {
 									setIsLogin(true)
 									setUserName(responsePayload.name)
 									setUserMail(responsePayload.email)
+									localStorage.setItem('name', responsePayload.name)
+									localStorage.setItem('email', responsePayload.email)
 								}}
 								onError={() => {
 									console.error("Login Failed")
