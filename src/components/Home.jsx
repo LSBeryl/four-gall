@@ -288,11 +288,14 @@ const WallTime = styled.span`
 
 const WallMessage = styled.div`
 	line-height: 2rem;
-	box-sizing: border-box;
-	padding-inline: 1rem;
-	@media (max-width: 768px) {
-		font-size: 1.3rem;
-	}
+  box-sizing: border-box;
+  padding-inline: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `
 
 const WallMessageId = styled.div`
