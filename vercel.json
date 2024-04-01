@@ -1,8 +1,5 @@
 {
   "rewrites": [
-    { "source": "/music", "destination": "/index.html" },
-    { "source": "/calendar", "destination": "/index.html" },
-    { "source": "/photo", "destination": "/index.html" },
-    { "source": "/link", "destination": "/index.html" }
+    { "source": "/*", "destination": "/index.html" }
   ]
 }
