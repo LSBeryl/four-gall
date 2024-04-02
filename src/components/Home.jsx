@@ -78,11 +78,9 @@ export default function Home() {
 
 	function nameCheck(name) {
 		let isReal = false
-		if(ourNames.indexOf(localStorage.getItem('name')) != -1) {
-			ourNames.forEach(v => {
-				if(name.includes(v)) isReal = true
-			})
-		}
+		ourNames.forEach(v => {
+			if(name.includes(v)) isReal = true
+		})
 		return isReal
 	}
 
