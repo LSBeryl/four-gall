@@ -20,7 +20,7 @@ export default function Home() {
 	const [msg, setMsg] = useState('NULL')
 	const [id, setId] = useState('NULL')
 
-	const [isLogin, setIsLogin] = useState(false)
+	const [isLogin, setIsLogin] = useState(localStorage.getItem('name') != null ? true : false)
 	const [userName, setUserName] = useState('noLogin')
 	const [userMail, setUserMail] = useState('noLogin')
 	
