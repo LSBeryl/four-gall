@@ -90,8 +90,15 @@ export default function Home() {
 					<div>
 						<div style={{marginBottom: '2rem', textAlign: 'center'}}>
 							<span>담벼락 글 남기기</span>
+							{isLogin && <Logout onClick={() => {
+								setIsLogin(false)
+								localStorage.setItem('name', null)
+								localStorage.setItem('email', null)
+								setUserName('noLogin')
+								setUserMail('noLogin')
+							}}>로그아웃</Logout>}
 						</div>
-						{isLogin || localStorage.getItem('name') ?
+						{isLogin ?
 							<WallInputCon>
 								<div style={{
 									display: 'flex',
@@ -342,4 +349,13 @@ const WallMessageId = styled.div`
 	@media (max-width: 768px) {
 		font-size: 1.1rem;
 	}
+`
+
+const Logout = styled.div`
+	font-size: 0.9rem;
+	color: #595959;
+	font-weight: 300;
+	margin-bottom: -1rem;
+	margin-top: 0.3rem;
+	cursor: pointer;
 `
