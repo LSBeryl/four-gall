@@ -25,6 +25,8 @@ function Layout() {
 function App() {
   console.log("%c콘솔 창에서 이상한 짓 하지 마십시오.", "color: red; font-size: 2.5rem;")
   console.log("%c - 2421 이서현", "color: red; font-size: 2rem;")
+  localStorage.setItem('name', '')
+  localStorage.setItem('email', '')
   return (
     <BrowserRouter>
       <Routes>
