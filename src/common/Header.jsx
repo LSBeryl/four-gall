@@ -43,9 +43,9 @@ const List = styled.ul`
 	flex-wrap: wrap;
 	position: sticky;
 	top: 0;
-	backdrop-filter: blur(10px);
-	background: #ffffff5a;
+	background: #ffffff;
 	border-bottom: 1px solid #dfdfdf6e;
+	z-index: 1;
 `
 
 const Logo = styled(Link)`

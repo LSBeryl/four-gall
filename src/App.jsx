@@ -8,7 +8,7 @@ import Side from './common/Side.jsx'
 import Home from './components/Home.jsx'
 import Photo from './components/Photo.jsx'
 import Calendar from './components/Calendar.jsx'
-import LinkPage from './components/Link.jsx'
+import Feature from './components/Feature.jsx'
 import Music from './components/Music.jsx'
 
 function Layout() {
@@ -32,7 +32,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/photo" element={<Photo />}/>
           <Route path="/calendar" element={<Calendar />}/>
-          <Route path="/link" element={<LinkPage />}/>
+          <Route path="/feature" element={<Feature />}/>
           <Route path="/music" element={<Music />}/>
         </Route>
       </Routes>

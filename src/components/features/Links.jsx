@@ -37,24 +37,24 @@ function LinkCom(props) {
 	)
 }
 
-export default function LinkPage() {
+export default function Links() {
 	return (
-		<>
-			<Wrap>
-				<Links>
-					{linkArr.map(v => <LinkCom data={v}/>)}
-				</Links>
-			</Wrap>
-		</>
+    <Wrap>
+      <LinksWrap>
+        {linkArr.map(v => <LinkCom data={v}/>)}
+      </LinksWrap>
+    </Wrap>
 	);
 }
 
 const Wrap = styled.div`
 	display: flex;
 	justify-content: center;
+  width: 100%;
+  margin-top: -5rem;
 `
 
-const Links = styled.div`
+const LinksWrap = styled.div`
 	padding: 5rem 0;
 	width: 20%;
 	display: flex;
