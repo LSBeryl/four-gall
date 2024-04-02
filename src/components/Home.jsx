@@ -80,7 +80,7 @@ export default function Home() {
 		let isReal = false
 		if(ourNames.indexOf(localStorage.getItem('name')) != -1) {
 			ourNames.forEach(v => {
-				if(v.includes(name)) isReal = true
+				if(name.includes(v)) isReal = true
 			})
 		}
 		return isReal
