@@ -1,22 +1,25 @@
 {
-  "data" : [
+  "data": [
     {
-      "src" : "cloth.png"
+      "src": "cloth.png"
     },
     {
-      "src" : "choi.jpg"
+      "src": "choi.jpg"
     },
     {
-      "src" : "doseo.png"
+      "src": "doseo.png"
     },
     {
-      "src" : "game.png"
+      "src": "game.png"
     },
     {
-      "src" : "imp.png"
+      "src": "imp.png"
     },
     {
-      "src" : "jungkook.png"
+      "src": "jungkook.png"
+    },
+    {
+      "src": "hbd.jpg"
     }
   ]
 }
