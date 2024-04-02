@@ -80,7 +80,6 @@ export default function Home() {
 		let isReal = false
 		ourNames.forEach(v => {
 			if(name.includes(v)) isReal = true
-			console.log(name, v, name.includes(v))
 		})
 		return isReal
 	}
