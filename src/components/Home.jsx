@@ -20,7 +20,7 @@ export default function Home() {
 	const [msg, setMsg] = useState('NULL')
 	const [id, setId] = useState('NULL')
 
-	const [isLogin, setIsLogin] = useState(localStorage.getItem('name') != null ? true : false)
+	const [isLogin, setIsLogin] = useState(false)
 	const [userName, setUserName] = useState('noLogin')
 	const [userMail, setUserMail] = useState('noLogin')
 	
@@ -70,6 +70,10 @@ export default function Home() {
 		return () => clearInterval(interval);
 	}, [curMsgIdx, messageNum])
 
+	useEffect(() => {
+		localStorage.getItem('name') != 'null' ? setIsLogin(true) : setIsLogin(false)
+	}, [])
+
 	return (
 		<>
 			<Wrap>
@@ -92,8 +96,8 @@ export default function Home() {
 							<span>담벼락 글 남기기</span>
 							{isLogin && <Logout onClick={() => {
 								setIsLogin(false)
-								localStorage.setItem('name', null)
-								localStorage.setItem('email', null)
+								localStorage.setItem('name', 'null')
+								localStorage.setItem('email', 'null')
 								setUserName('noLogin')
 								setUserMail('noLogin')
 							}}>로그아웃</Logout>}
