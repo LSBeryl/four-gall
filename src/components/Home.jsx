@@ -23,6 +23,8 @@ export default function Home() {
 	const [isLogin, setIsLogin] = useState(false)
 	const [userName, setUserName] = useState('noLogin')
 	const [userMail, setUserMail] = useState('noLogin')
+
+	const ourNames = ['강민상', '고준기', '구본찬', '김도윤', '김민서', '김병규', '김승원', '김진호', '남송연', '노재원', '문석호', '박동주', '박연진', '박종윤', '손기령', '송민서', '신현솔', '윤예진', '이기원', '이기찬', '이서현', '이재영', '이준행', '이하은', '이현면', '이희탁', '조성민', '조우창', '조정환', '최희윤', '황석준']
 	
 	function decodeJwtResponse (token) {
 			var base64Url = token.split('.')[1];
@@ -74,6 +76,16 @@ export default function Home() {
 		localStorage.getItem('name') != 'null' ? setIsLogin(true) : setIsLogin(false)
 	}, [])
 
+	function nameCheck(name) {
+		let isReal = false
+		if(ourNames.indexOf(localStorage.getItem('name')) != -1) {
+			ourNames.forEach(v => {
+				if(v.includes(name)) isReal = true
+			})
+		}
+		return isReal
+	}
+
 	return (
 		<>
 			<Wrap>
@@ -108,31 +120,41 @@ export default function Home() {
 									display: 'flex',
 									justifyContent: 'space-between'
 								}}>
-									<input type="text" placeholder='이름' onInput={(e) => {console.log(setId(e.target.value))}} />
-									<WallBtn onClick={async () => {
-										if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '') {
-											alert('내용을 입력해주세요!')
-										} else {
-											let pw = prompt('글 삭제를 위해 비밀번호를 입력해주세요.')
-											while(pw == null || pw == '') {
-												alert('취소되었습니다.')
-												return 0
+									<input type="text" placeholder={nameCheck(localStorage.getItem('name')) ? '이름' : ''}
+									onInput={(e) => {console.log(setId(e.target.value))}}
+									disabled={nameCheck(localStorage.getItem('name')) ? false : true} />
+									<WallBtn
+									disabled={nameCheck(localStorage.getItem('name')) ? false : true}
+									onClick={async () => {
+										if(nameCheck(localStorage.getItem('name'))) {
+											if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '') {
+												alert('내용을 입력해주세요!')
+											} else {
+												let pw = prompt('글 삭제를 위해 비밀번호를 입력해주세요.')
+												while(pw == null || pw == '') {
+													alert('취소되었습니다.')
+													return 0
+												}
+												await addDoc(collection(db, "wall"), {
+													id: id,
+													msg: msg,
+													creationTime: new Date(),
+													pw: pw,
+													name: userName != 'noLogin' ? userName : localStorage.getItem('name'),
+													mail: userMail != 'noLogin' ? userMail : localStorage.getItem('email')
+												});
+												location.reload(true)
+												alert('성공적으로 등록되었습니다.')
 											}
-											await addDoc(collection(db, "wall"), {
-												id: id,
-												msg: msg,
-												creationTime: new Date(),
-												pw: pw,
-												name: userName != 'noLogin' ? userName : localStorage.getItem('name'),
-												mail: userMail != 'noLogin' ? userMail : localStorage.getItem('email')
-											});
-											location.reload(true)
-											alert('성공적으로 등록되었습니다.')
+										} else {
+											alert('올바르지 않은 계정으로 시도하였습니다.')
 										}
 									}}>글쓰기</WallBtn>
 								</div>
 								<div>
-									<input type="text" placeholder='남길 메시지' onInput={(e) => {console.log(setMsg(e.target.value))}} />
+									<input type="text" placeholder={nameCheck(localStorage.getItem('name')) ? '남길 메시지' : '올바르지 않은 계정'}
+									onInput={(e) => {console.log(setMsg(e.target.value))}}
+									disabled={nameCheck(localStorage.getItem('name')) ? false : true} />
 								</div>
 							</WallInputCon>
 							:
