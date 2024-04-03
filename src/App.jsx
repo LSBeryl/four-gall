@@ -53,6 +53,7 @@ function App() {
           <FormDiv>
             <input type="password" placeholder="입장 코드 입력" onChange={e => {
               if(e.target.value == import.meta.env.VITE_GALLERY_PW) setIsFour(true)
+              else setIsFour(false)
             }}/>
             <button style={{display: isFour ? '' : 'none'}} onClick={() => {setIsSubmitted(true)}}>Join</button>
           </FormDiv>
