@@ -69,13 +69,14 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #fcfcfc;
 `
 
 const Contain = styled.div`
   width: 40vw;
   height: 50vh;
   border-radius: 30px;
-  background: #fcfcfc;
+  background: #fff;
   border: 1px solid #eaeaea;
   box-sizing: border-box;
   padding: 5rem;
