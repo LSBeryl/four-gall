@@ -83,6 +83,11 @@ const Contain = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  @media (max-width: 1000px) {
+    padding: 10px;
+    width: 100%;
+    border-radius: 0;
+  }
 `
 
 const Title = styled.div`
@@ -94,6 +99,12 @@ const Title = styled.div`
   gap: 1rem;
   & > img {
     height: 8vh;
+  }
+  @media (max-width: 1265px) {
+    font-size: 2rem;
+    & > img {
+      height: 5vh;
+    }
   }
 `
 
