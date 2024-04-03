@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react'
 import { getDocs, collection, getDoc, doc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../../firebase.jsx'
 import { Link } from 'react-router-dom'
-import { Trash2, Eye, Plus } from 'lucide-react'
+import { Trash2, Eye, Plus, X } from 'lucide-react'
 
 
 export default function Vote() {
 	const [voteArr, setVoteArr] = useState([])
   const [voteIds, setVoteIds] = useState([])
-  const [isCreate, setIsCreate] = useState(false)
+  const [isCreate, setIsCreate] = useState(0) // 1: 열림, 0: 닫힘
 
   // 새 투표 만들 때 필요한 변수들
   const [title, setTitle] = useState('')
@@ -158,51 +158,54 @@ export default function Vote() {
           setIsCreate(true)
         }} >
         <Plus />
-        <CreateVote style={{display: isCreate ? '' : 'none'}} onClick={() => {setIsCreate(false)}}>
-          <CreationBox>
-            <input type="text" placeholder='투표 제목' onChange={e => {setTitle(e.target.value)}}/>
-            <input type="text" placeholder='투표 설명 글' onChange={e => {setArticle(e.target.value)}}/>
-            <input type="text" placeholder='개표 비밀번호' onChange={e => {setPw(e.target.value)}}/>
-            <div style={{display: 'flex', gap: '1rem', justifyContent: 'center'}}>
-              <input type="radio" name="create" id="short"
-              onClick={() => {setIsRadio(false)}} defaultChecked/><label htmlFor="short"
-              onClick={() => {setIsRadio(false)}}>단답형</label>
-              <input type="radio" name="create" id="select"
-              onClick={() => {setIsRadio(true)}}/><label htmlFor="select"
-              onClick={() => {setIsRadio(true)}}>객관식</label>
-            </div>
-            <input type="text" placeholder='투표 항목 (ex. 이서현, 이서현, 이서현)'
-            style={{display: isRadio ? '' : 'none'}} onChange={e => {setChoices(e.target.value.split(', '))}}/>
-            <CreateSubmitContainer>
-              <CreateSubmit onClick={async () => {
-                if(title && article && pw && choices) {
-                  const newChoices = []
-                  choices.forEach(v => {
-                    newChoices.push({
-                      object: v,
-                      votes: '0'
-                    })
-                  })
-                  await addDoc(collection(db, "Vote"), {
-                    title: title,
-                    article: article,
-                    pw: pw,
-                    choices: newChoices,
-                    isRadio: isRadio,
-                    creationTime: new Date()
-                  }).then(() => {
-                    location.reload(true)
-                  })
-                } else {
-                  alert('정보를 모두 입력해주세요.')
-                }
-              }}>
-                만들기
-              </CreateSubmit>
-            </CreateSubmitContainer>
-          </CreationBox>
-        </CreateVote>
       </PlusBox>
+      <CreateVote style={{display: isCreate == 1 ? 'flex' : 'none'}}>
+        <CreationBox>
+          <Close>
+            <X onClick={() => {setIsCreate(0)}}/>
+          </Close>
+          <input type="text" placeholder='투표 제목' onChange={e => {setTitle(e.target.value)}}/>
+          <input type="text" placeholder='투표 설명 글' onChange={e => {setArticle(e.target.value)}}/>
+          <input type="text" placeholder='개표 비밀번호' onChange={e => {setPw(e.target.value)}}/>
+          <div style={{display: 'flex', gap: '1rem', justifyContent: 'center'}}>
+            <input type="radio" name="create" id="short"
+            onClick={() => {setIsRadio(false)}} defaultChecked/><label htmlFor="short"
+            onClick={() => {setIsRadio(false)}}>단답형</label>
+            <input type="radio" name="create" id="select"
+            onClick={() => {setIsRadio(true)}}/><label htmlFor="select"
+            onClick={() => {setIsRadio(true)}}>객관식</label>
+          </div>
+          <input type="text" placeholder='투표 항목 (ex. 이서현, 이서현, 이서현)'
+          style={{display: isRadio ? '' : 'none'}} onChange={e => {setChoices(e.target.value.split(', '))}}/>
+          <CreateSubmitContainer>
+            <CreateSubmit onClick={async () => {
+              if(title && article && pw && choices) {
+                const newChoices = []
+                choices.forEach(v => {
+                  newChoices.push({
+                    object: v,
+                    votes: '0'
+                  })
+                })
+                await addDoc(collection(db, "Vote"), {
+                  title: title,
+                  article: article,
+                  pw: pw,
+                  choices: newChoices,
+                  isRadio: isRadio,
+                  creationTime: new Date()
+                }).then(() => {
+                  location.reload(true)
+                })
+              } else {
+                alert('정보를 모두 입력해주세요.')
+              }
+            }}>
+              만들기
+            </CreateSubmit>
+          </CreateSubmitContainer>
+        </CreationBox>
+      </CreateVote>
       {voteArr.sort((a, b) => {
         const timeA = a.creationTime ? a.creationTime.seconds : null;
         const timeB = b.creationTime ? b.creationTime.seconds : null;
@@ -380,5 +383,14 @@ const CreateSubmit = styled.button`
   &:hover {
     background: #000;
     color: #fff;
+  }
+`
+
+const Close = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  & > * {
+    width: 1rem;
+    cursor: pointer;
   }
 `
