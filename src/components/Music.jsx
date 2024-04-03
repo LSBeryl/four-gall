@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { Plus } from 'lucide-react'
-import { getDocs, collection, getDoc, doc, Firestore, addDoc } from 'firebase/firestore'
+import { getDocs, collection, getDoc, doc, addDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { Link } from 'react-router-dom'
 
