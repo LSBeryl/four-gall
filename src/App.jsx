@@ -29,10 +29,11 @@ function App() {
   console.log("%c - 2421 이서현", "color: red; font-size: 2rem;")
 
   const [isFour, setIsFour] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   return (
     <BrowserRouter>
-      {isFour ?
+      {isFour && isSubmitted ?
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />}/>
@@ -53,6 +54,7 @@ function App() {
             <input type="password" placeholder="입장 코드 입력" onChange={e => {
               if(e.target.value == import.meta.env.VITE_GALLERY_PW) setIsFour(true)
             }}/>
+            <button style={{display: isFour ? '' : 'none'}} onClick={() => {setIsSubmitted(true)}}>Join</button>
           </FormDiv>
         </Contain>
       </Wrap>
@@ -112,6 +114,7 @@ const FormDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   & > input {
     border: 0;
     border: 1px solid #d2d2d2;
@@ -121,6 +124,19 @@ const FormDiv = styled.div`
     &:focus{
       border: 1px solid #7e7e7e;
       outline: none;
+    }
+  }
+  & > button {
+    border: 1px solid #d2d2d2;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
     }
   }
 `
