@@ -31,6 +31,12 @@ function App() {
   const [isFour, setIsFour] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  function yyyeah(dd) {
+    const yyyeah = []
+    dd.split('').forEach(v => yyyeah.push(v.charCodeAt()))
+    return `${Number(yyyeah.join(''))*Number(import.meta.env.VITE_NUMBER_ONE)/100000}`
+  }
+
   return (
     <BrowserRouter>
       {isFour && isSubmitted || localStorage.getItem('isFour') ?
@@ -52,7 +58,8 @@ function App() {
           </Title>
           <FormDiv>
             <input type="password" placeholder="입장 코드 입력" onChange={e => {
-              if(window.btoa(`${ e.target.value }salt`) == window.btoa(`${ import.meta.env.VITE_GALLERY_PW }${ 'salt' }`)) setIsFour(true)
+              
+              if(yyyeah(e.target.value).includes(import.meta.env.VITE_NUMBER_TWO)) setIsFour(true)
               else setIsFour(false)
             }}/>
             {isFour && <button onClick={() => {setIsSubmitted(true);localStorage.setItem('isFour', true)}}>Join</button>}
