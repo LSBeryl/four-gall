@@ -52,7 +52,7 @@ function App() {
           </Title>
           <FormDiv>
             <input type="password" placeholder="입장 코드 입력" onChange={e => {
-              if(e.target.value == import.meta.env.VITE_GALLERY_PW) setIsFour(true)
+              if(window.btoa(`${ e.target.value }salt`) == window.btoa(`${ import.meta.env.VITE_GALLERY_PW }${ 'salt' }`)) setIsFour(true)
               else setIsFour(false)
             }}/>
             {isFour && <button onClick={() => {setIsSubmitted(true);localStorage.setItem('isFour', true)}}>Join</button>}
