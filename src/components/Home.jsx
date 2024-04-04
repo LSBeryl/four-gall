@@ -85,7 +85,7 @@ export default function Home() {
 				<WallCon>
 					<div>
 						<div style={{marginBottom: '2rem', textAlign: 'center'}}>
-							<span>담벼락 글 남기기</span>
+							<span>담벼락에 글 남기기</span>
 						</div>
 						<WallInputCon>
 							<div style={{
