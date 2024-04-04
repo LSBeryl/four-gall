@@ -37,6 +37,15 @@ function App() {
     return `${Number(yyyeah.join(''))*Number(import.meta.env.VITE_NUMBER_ONE)/100000}`
   }
 
+  function ttt(ddd) {
+    const eee = ddd.split('')
+    let n = 0
+    eee.forEach(v => {
+      if(v != 'e' && v != '+' && v != '.') n += Number(v)
+    })
+    return n
+  }
+
   return (
     <BrowserRouter>
       {isFour && isSubmitted || localStorage.getItem('isFour') ?
@@ -59,7 +68,7 @@ function App() {
           <FormDiv>
             <input type="password" placeholder="입장 코드 입력" onChange={e => {
               
-              if(yyyeah(e.target.value).includes(import.meta.env.VITE_NUMBER_TWO)) setIsFour(true)
+              if(ttt(yyyeah(e.target.value)) == 83) setIsFour(true)
               else setIsFour(false)
             }}/>
             {isFour && <button onClick={() => {setIsSubmitted(true);localStorage.setItem('isFour', true)}}>Join</button>}
