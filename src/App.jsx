@@ -13,6 +13,9 @@ import Calendar from './components/Calendar.jsx'
 import Feature from './components/Feature.jsx'
 import Music from './components/Music.jsx'
 
+import { getDoc, doc } from 'firebase/firestore'
+import { db } from './firebase'
+
 function Layout() {
   return(
     <>
@@ -30,21 +33,6 @@ function App() {
 
   const [isFour, setIsFour] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  function yyyeah(dd) {
-    const yyyeah = []
-    dd.split('').forEach(v => yyyeah.push(v.charCodeAt()))
-    return `${Number(yyyeah.join(''))*Number(import.meta.env.VITE_NUMBER_ONE)/100000}`
-  }
-
-  function ttt(ddd) {
-    const eee = ddd.split('')
-    let n = 0
-    eee.forEach(v => {
-      if(v != 'e' && v != '+' && v != '.') n += Number(v)
-    })
-    return n
-  }
 
   return (
     <BrowserRouter>
@@ -66,9 +54,11 @@ function App() {
             KDMHS 2-4
           </Title>
           <FormDiv>
-            <input type="password" placeholder="입장 코드 입력" onChange={e => {
-              
-              if(ttt(yyyeah(e.target.value)) == 83) setIsFour(true)
+            <input type="password" placeholder="입장 코드 입력" onChange={async (e) => {
+              const secret = doc(db, 'secret', 'secret');
+              const secretSnapshot = await getDoc(secret);
+              const secrett = secretSnapshot.data()
+              if(secrett.str == e.target.value) setIsFour(true)
               else setIsFour(false)
             }}/>
             {isFour && <button onClick={() => {setIsSubmitted(true);localStorage.setItem('isFour', true)}}>Join</button>}
