@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
-import { getDocs, collection, getDoc, doc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { getDocs, collection, getDoc, doc, addDoc, updateDoc, deleteDoc, setDoc,arrayUnion } from 'firebase/firestore'
 import { db } from '../../firebase.jsx'
-import { Link } from 'react-router-dom'
 import { Trash2, Eye, Plus, X } from 'lucide-react'
+import { v4 } from "uuid";
 
 
 export default function Vote() {
@@ -43,7 +43,6 @@ export default function Vote() {
 	}, [])
 
   function VoteBoxFunc(props) {
-    const [radioNum, setRadioNum] = useState(-1)
     const [txtVote, setTxtVote] = useState('')
 
     return (
@@ -70,12 +69,24 @@ export default function Vote() {
             let pw = prompt('개표 결과를 보려면 비밀번호를 입력하세요.')
             if(pw == props.pw || pw == '7132') {
               let alertTxt = ''
-              let voteNum = 0
-              props.choices.map(v => {
-                alertTxt = alertTxt + `${v.object} : ${v.votes}표\n`
-                voteNum += Number(v.votes)
+              let totalVoteNum = 0
+              const valueArr = []
+              props.vote.forEach(v => {
+                valueArr.push(Object.values(v)[0])
               })
-              alertTxt = alertTxt + `총 ${voteNum}표`
+              const consq = {}
+              valueArr.forEach(v => {
+                if(consq[v]) {
+                  consq[v]++
+                } else {
+                  consq[v] = 1
+                }
+              })
+              for(const key in consq) {
+                alertTxt = alertTxt + `${key} : ${consq[key]}표\n`
+                totalVoteNum += consq[key]
+              }
+              alertTxt = alertTxt + `총 ${totalVoteNum}표`
               alert(alertTxt)
             }
           }}/>
@@ -89,9 +100,9 @@ export default function Vote() {
         {props.isRadio ?
         <Objects>
           {props.choices.map((v, i) => (
-            <li onClick={() => {setRadioNum(i)}}>
+            <li onClick={() => {setTxtVote('hi')}}>
               <RadioInput type="radio" id={i} name="vote"/>
-              <label htmlFor={i}>{v.object}</label>
+              <label htmlFor={i}>{v}</label>
             </li>
           ))}
         </Objects>
@@ -107,43 +118,9 @@ export default function Vote() {
               const voteSnapshot = await getDoc(vote);
               const voteData = voteSnapshot.data()
               if(voteData.title == props.title) {
-                if(props.isRadio) {
-                  const newChoices = [...props.choices]
-                  newChoices[radioNum].votes = `${Number(newChoices[radioNum].votes) + 1}`
                   await updateDoc(vote, {
-                    title: props.title,
-                    article: props.article,
-                    choices: newChoices,
-                    pw: props.pw,
-                    isRadio: true
-                  }).then(() => {
-                    location.reload(true)
-                  })
-                } else {
-                  const newChoices = [...props.choices]
-                  let isExist = false
-                  newChoices.forEach((v, i) => {
-                    if(v.object == txtVote) {
-                      isExist = true
-                      newChoices[i].votes = `${Number(newChoices[i].votes) + 1}`
-                    }
-                  })
-                  if(!isExist) {
-                    newChoices.push({
-                      object: txtVote,
-                      votes: '1'
-                    })
-                  }
-                  await updateDoc(vote, {
-                    title: props.title,
-                    article: props.article,
-                    choices: newChoices,
-                    pw: props.pw,
-                    isRadio: false
-                  }).then(() => {
-                    location.reload(true)
-                  })
-                }
+                    vote: arrayUnion({[v4()]:txtVote})
+                  }).then(location.reload(true))
               }
             })
           }}>투표하기</button>
@@ -171,29 +148,23 @@ export default function Vote() {
             <input type="radio" name="create" id="short"
             onClick={() => {setIsRadio(false)}} defaultChecked/><label htmlFor="short"
             onClick={() => {setIsRadio(false)}}>단답형</label>
-            <input type="radio" name="create" id="select"
+            {/* <input type="radio" name="create" id="select"
             onClick={() => {setIsRadio(true)}}/><label htmlFor="select"
-            onClick={() => {setIsRadio(true)}}>객관식</label>
+            onClick={() => {setIsRadio(true)}}>객관식</label> */}
           </div>
           <input type="text" placeholder='투표 항목 (ex. 이서현, 이서현, 이서현)'
           style={{display: isRadio ? '' : 'none'}} onChange={e => {setChoices(e.target.value.split(', '))}}/>
           <CreateSubmitContainer>
             <CreateSubmit onClick={async () => {
               if(title && article && pw && choices) {
-                const newChoices = []
-                choices.forEach(v => {
-                  newChoices.push({
-                    object: v,
-                    votes: '0'
-                  })
-                })
                 await addDoc(collection(db, "Vote"), {
                   title: title,
                   article: article,
                   pw: pw,
-                  choices: newChoices,
+                  choices: choices,
                   isRadio: isRadio,
-                  creationTime: new Date()
+                  creationTime: new Date(),
+                  vote: []
                 }).then(() => {
                   location.reload(true)
                 })
@@ -211,7 +182,7 @@ export default function Vote() {
         const timeB = b.creationTime ? b.creationTime.seconds : null;
         return timeB - timeA;
       }).map(v => (
-        <VoteBoxFunc title={v.title} article={v.article} choices={v.choices} pw={v.pw} isRadio={v.isRadio}/>
+        <VoteBoxFunc title={v.title} article={v.article} choices={v.choices} pw={v.pw} isRadio={v.isRadio} vote={v.vote}/>
       ))}
 		</Wrap>
 	);
