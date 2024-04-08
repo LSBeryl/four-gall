@@ -33,9 +33,12 @@ function App() {
   console.log("%c콘솔 창에서 이상한 짓 하지 마십시오.", "color: red; font-size: 2.5rem;")
   console.log("%c - 2421 이서현", "color: red; font-size: 2rem;")
 
+  const [isFour, setIsFour] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
   return (
     <BrowserRouter>
-      {localStorage.getItem('access_token') ?
+      {isFour && isSubmitted || localStorage.getItem('isFour') ?
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />}/>
@@ -53,14 +56,14 @@ function App() {
             KDMHS 2-4
           </Title>
           <FormDiv>
-            <input type="password" placeholder="입장 코드 입력" />
-            <button onClick={async (event) => {
-              axios.post('', { secret: event.target.value })
-              .then(_result => {
-                // Token Processing
-              })
-              .catch(_error => alert('로그인에 실패하였습니다.'))
-            }}>Login</button>
+            <input type="password" placeholder="입장 코드 입력" onChange={async (e) => {
+              const secret = doc(db, 'secret', 'secret');
+              const secretSnapshot = await getDoc(secret);
+              const secrett = secretSnapshot.data()
+              if(secrett.str == e.target.value) setIsFour(true)
+              else setIsFour(false)
+            }}/>
+            {isFour && <button onClick={() => {setIsSubmitted(true);localStorage.setItem('isFour', true)}}>Join</button>}
           </FormDiv>
         </Contain>
       </Wrap>
