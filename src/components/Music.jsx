@@ -31,7 +31,7 @@ async function getYtTitle(src) {
 }
 
 export default function Music() {
-	const [musicData, setMusicData] = useState([{src: "https://naver.com", name: "이서현"}])
+	const [musicData, setMusicData] = useState([{src: "Loading", name: "Loading"}])
 
 	useEffect(() => {
 		async function fetchMusicDataIds() {

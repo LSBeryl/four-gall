@@ -14,7 +14,7 @@ export default function Calendar() {
 	useEffect(() => {
 		const axiosFetch = async () => {
 			try {
-				const response = await axios.get(`${window.location.href.includes('local') ? 'http://localhost:5050' : 'http://dimi24.vercel.app:5050'}` + '/t');
+				const response = await axios.get('https://port-0-fourgall-back-2aat2cluqx5by1.sel5.cloudtype.app/t');
 				console.log(response.data[4][0].subject)
 				setComciData(response.data)
 			} catch (error) {
