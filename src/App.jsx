@@ -38,7 +38,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isFour && isSubmitted || localStorage.getItem('isFour') ?
+      {isFour && isSubmitted ?
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />}/>
@@ -63,7 +63,7 @@ function App() {
               if(secrett.str == e.target.value) setIsFour(true)
               else setIsFour(false)
             }}/>
-            {isFour && <button onClick={() => {setIsSubmitted(true);localStorage.setItem('isFour', true)}}>Join</button>}
+            {isFour && <button onClick={() => {setIsSubmitted(true)}}>Join</button>}
           </FormDiv>
         </Contain>
       </Wrap>
