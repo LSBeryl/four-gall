@@ -1,50 +1,42 @@
 {
   "data": [
     {
-      "num": "1",
       "date": "04.05",
       "type": "income",
       "div": "학급비",
       "what": "정기 학급비",
-      "income": "93,000",
+      "income": "93000",
       "spent": "0",
-      "total": "93,000",
       "note": "1인당 3,000원",
       "link": ""
     },
     {
-      "num": "2",
       "date": "04.05",
       "type": "income",
       "div": "수금 후 여유자금",
       "what": "반티 수금 후 여유자금",
-      "income": "25,000",
+      "income": "25000",
       "spent": "0",
-      "total": "118,000",
       "note": "519000 - 494000",
       "link": ""
     },
     {
-      "num": "3",
       "date": "04.11",
       "type": "spent",
       "div": "구매",
       "what": "자습 캔디 구매",
       "income": "0",
-      "spent": "13,710",
-      "total": "104,290",
+      "spent": "13710",
       "note": "포도당♥",
       "link": "https://drive.google.com/file/d/1FpWWDK9IzfYy8XHdKe7zv--wxVGvjcSw/view"
     },
     {
-      "num": "4",
       "date": "04.11",
       "type": "spent",
       "div": "구매",
       "what": "우드락보드 구매",
       "income": "0",
-      "spent": "3,000",
-      "total": "101,290",
+      "spent": "3000",
       "note": "",
       "link": "https://drive.google.com/file/d/1vGHCZqnBqhQbEGZokXkAGcnoRV7jddX4/view"
     }

@@ -3,7 +3,16 @@ import { Link } from 'react-router-dom'
 import { data } from './book.json'
 
 export default function Book() {
-  // 번호, 일자, 구분, 항목, 수입, 지출, 총액, 비고, 증빙
+  /**현재 행 인덱스를 받아 data에서 그 행까지의 총합을 리턴*/
+  function total(num) {
+    let sum = 0
+    for(let i = 0; i <= num; i++) {
+      sum += Number(data[i].income)
+      sum -= Number(data[i].spent)
+    }
+    return sum.toLocaleString()
+  }
+
   return (
     <Wrap>
       <Title>2024 학급회 예산 기록표</Title>
@@ -23,17 +32,17 @@ export default function Book() {
             </Tr>
           </Thead>
           <Tbody>
-            {data.map(v => (
+            {data.map((v, i) => (
               <Tr>
-                <Num>{v.num}</Num>
+                <Num>{i + 1}</Num>
                 <Date>{v.date}</Date>
                 <Division>
                   {v.type == 'income' ? <Blue>{v.div}</Blue> : <Red>{v.div}</Red>}
                 </Division>
                 <What>{v.what}</What>
-                <Money>₩{v.income}</Money>
-                <Money>₩{v.spent}</Money>
-                <Money>₩{v.total}</Money>
+                <Money>₩{Number(v.income).toLocaleString()}</Money>
+                <Money>₩{Number(v.spent).toLocaleString()}</Money>
+                <Money>₩{total(i)}</Money>
                 <Note>{v.note}</Note>
                 <Proof>
                   {v.link ? <Link to={v.link}>링크</Link> : ''}
