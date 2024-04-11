@@ -18,6 +18,8 @@ export default function Vote() {
   const [choices, setChoices] = useState([])
   const [isRadio, setIsRadio] = useState(false)
 
+  const [update, setUpdate] = useState([])
+
 	useEffect(() => {
 		async function fetchVoteDataIds() {
 			const voteDataCollection = collection(db, 'Vote');
@@ -40,7 +42,7 @@ export default function Vote() {
 		}
 
 		fetchData();
-	}, [])
+	}, [update])
 
   function VoteBoxFunc(props) {
     const [txtVote, setTxtVote] = useState('')
@@ -58,7 +60,7 @@ export default function Vote() {
                 if(pw == props.pw || pw == '7132') {
                   await deleteDoc(doc(db, "Vote", id))
                   alert('삭제되었습니다.')
-                  location.reload(true)
+                  setUpdate([...update])
                 } else {
                   alert('실패')
                 }
@@ -120,7 +122,7 @@ export default function Vote() {
               if(voteData.title == props.title) {
                   await updateDoc(vote, {
                     vote: arrayUnion({[v4()]:txtVote})
-                  }).then(location.reload(true))
+                  }).then(setUpdate([...update]))
               }
             })
           }}>투표하기</button>
@@ -166,7 +168,8 @@ export default function Vote() {
                   creationTime: new Date(),
                   vote: []
                 }).then(() => {
-                  location.reload(true)
+                  setUpdate([...update])
+                  setIsCreate(0)
                 })
               } else {
                 alert('정보를 모두 입력해주세요.')
