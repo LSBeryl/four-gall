@@ -43,6 +43,9 @@ export default function Book() {
           </Tbody>
         </Table>
       </TableWrap>
+      <Warn>
+        예산 기록표 문의 <Name>2407 김승원</Name>, <Name>2404 김도윤</Name>
+      </Warn>
     </Wrap>
   )
 }
@@ -145,4 +148,16 @@ const Red = styled.div`
   box-sizing: border-box;
   padding-inline: 0.2rem;
   color: #810000;
+`
+
+const Warn = styled.div`
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+`
+
+const Name = styled.span`
+  color: #707070;
+  font-weight: 500;
 `
