@@ -20,7 +20,7 @@ export default function Home() {
 	const [msg, setMsg] = useState('NULL')
 	const [id, setId] = useState('NULL')
 
-	const ourNames = ['강민상', '고준기', '구본찬', '김도윤', '김민서', '김병규', '김승원', '김진호', '남송연', '노재원', '문석호', '박동주', '박연진', '박종윤', '손기령', '송민서', '신현솔', '윤예진', '이기원', '이기찬', '이서현', '이재영', '이준행', '이하은', '이현면', '이희탁', '조성민', '조우창', '조정환', '최희윤', '황석준']
+	const [update, setUpdate] = useState([])
 
 	useEffect(() => {
 		async function fetchWallIds() {
@@ -45,7 +45,7 @@ export default function Home() {
 		}
 
 		fetchData();
-	}, [])
+	}, [update])
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -57,14 +57,6 @@ export default function Home() {
 		}, 2000)
 		return () => clearInterval(interval);
 	}, [curMsgIdx, messageNum])
-
-	function nameCheck(name) {
-		let isReal = false
-		ourNames.forEach(v => {
-			if(name.includes(v)) isReal = true
-		})
-		return isReal
-	}
 
 	return (
 		<>
@@ -110,7 +102,7 @@ export default function Home() {
 											creationTime: new Date(),
 											pw: pw
 										});
-										location.reload(true)
+										setUpdate([...update])
 										alert('성공적으로 등록되었습니다.')
 									}
 								}}>글쓰기</WallBtn>
@@ -146,18 +138,18 @@ export default function Home() {
 																if(pw == v.pw || pw == '7132') {
 																	await deleteDoc(doc(db, "wall", id))
 																	alert('삭제되었습니다.')
-																	location.reload(true)
+																	setUpdate([...update])
 																}
 															} else {
 																if(pw == '7132') {
 																	await deleteDoc(doc(db, "wall", id))
 																	alert('삭제되었습니다.')
-																	location.reload(true)
+																	setUpdate([...update])
 																}
 															}
 														}
 													})
-												}} style={{cursor: 'pointer'}} color="#6f6f6f" width="1.1rem"></Trash2>
+												}} style={{cursor: 'pointer'}} color="#6f6f6f" width="1.1rem" />
 											</div>
 									</ShowDataCom>
 								))

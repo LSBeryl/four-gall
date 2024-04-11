@@ -32,6 +32,7 @@ async function getYtTitle(src) {
 
 export default function Music() {
 	const [musicData, setMusicData] = useState([{src: "Loading", name: "Loading"}])
+  const [update, setUpdate] = useState([])
 
 	useEffect(() => {
 		async function fetchMusicDataIds() {
@@ -74,7 +75,7 @@ export default function Music() {
               src: src,
               creationTime: new Date()
             });
-            location.reload(true)
+            setUpdate([...update])
             alert('성공적으로 등록되었습니다.')
           }
           else alert('등록에 실패했습니다.')

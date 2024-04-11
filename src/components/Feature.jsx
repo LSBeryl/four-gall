@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 
 import Dice from './features/Dice.jsx'
 import Links from './features/Links.jsx'
-import Location from './features/Location.jsx'
+import Book from './features/Book.jsx'
 import Seat from './features/Seat.jsx'
 import Test from './features/Test.jsx'
 import Vote from './features/Vote.jsx'
@@ -29,7 +29,7 @@ function FeatureComponents(props) {
 		case 4:
 			return <Test />
 		case 5:
-			return <Location />
+			return <Book />
 		case 6:
 			return <Links />
 	}
@@ -58,7 +58,7 @@ export default function Feature() {
 						<FeatureTxt>수행평가 안내 📝</FeatureTxt>
 					</FeatureCon>
 					<FeatureCon onClick={() => {setWhere(5)}}>
-						<FeatureTxt>현재 위치 📍</FeatureTxt>
+						<FeatureTxt>학급회 예산 기록표 💸</FeatureTxt>
 					</FeatureCon>
 					<FeatureCon onClick={() => {setWhere(6)}}>
 						<FeatureTxt>각종 링크 🔗</FeatureTxt>
