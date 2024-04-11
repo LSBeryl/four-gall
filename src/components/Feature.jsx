@@ -7,7 +7,7 @@ import Dice from './features/Dice.jsx'
 import Links from './features/Links.jsx'
 import Book from './features/Book.jsx'
 import Seat from './features/Seat.jsx'
-import Test from './features/Test.jsx'
+import Gang from './features/Gang.jsx'
 import Vote from './features/Vote.jsx'
 
 // 유용한 기능
@@ -27,7 +27,7 @@ function FeatureComponents(props) {
 		case 3:
 			return <Vote />
 		case 4:
-			return <Test />
+			return <Gang />
 		case 5:
 			return <Book />
 		case 6:
@@ -55,7 +55,7 @@ export default function Feature() {
 						<FeatureTxt>투표 🗳️</FeatureTxt>
 					</FeatureCon>
 					<FeatureCon onClick={() => {setWhere(4)}}>
-						<FeatureTxt>수행평가 안내 📝</FeatureTxt>
+						<FeatureTxt>학급회 조직도 📋</FeatureTxt>
 					</FeatureCon>
 					<FeatureCon onClick={() => {setWhere(5)}}>
 						<FeatureTxt>학급회 예산 기록표 💸</FeatureTxt>
