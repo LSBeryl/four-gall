@@ -1,7 +1,7 @@
 import { Route, Routes, BrowserRouter, Outlet } from "react-router-dom"
 import styled from 'styled-components'
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Header from './common/Header.jsx'
 import Footer from './common/Footer.jsx'
@@ -32,6 +32,12 @@ function Layout() {
 function App() {
   const [isFour, setIsFour] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  useEffect(() => {
+    if(window.location.href.includes('localhost')) {
+      document.title = '4반 갤러리 테스트'
+    }
+  }, [])
 
   return (
     <BrowserRouter>

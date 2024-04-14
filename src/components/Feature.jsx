@@ -9,6 +9,7 @@ import Book from './features/Book.jsx'
 import Seat from './features/Seat.jsx'
 import Gang from './features/Gang.jsx'
 import Vote from './features/Vote.jsx'
+import Note from './features/Note.jsx'
 
 // 유용한 기능
 // 1. 자리 배치
@@ -32,11 +33,13 @@ function FeatureComponents(props) {
 			return <Book />
 		case 6:
 			return <Links />
+		case 7:
+			return <Note />
 	}
 }
 
 export default function Feature() {
-	const [where, setWhere] = useState(0) // 0번 : 아무 곳에도 이동 X, 1~6번 : 각각 자리, 번호, 투표, 안내, 위치, 링크
+	const [where, setWhere] = useState(0) // 0번 : 아무 곳에도 이동 X, 1~6번 : 각각 자리, 번호, 투표, 안내, 위치, 링크, 노트
 
 	return (
 		<>
@@ -62,6 +65,9 @@ export default function Feature() {
 					</FeatureCon>
 					<FeatureCon onClick={() => {setWhere(6)}}>
 						<FeatureTxt>각종 링크 🔗</FeatureTxt>
+					</FeatureCon>
+					<FeatureCon onClick={() => {setWhere(7)}}>
+						<FeatureTxt>수행평가 기록 ✍️</FeatureTxt>
 					</FeatureCon>
 				</Features>
 				<FeatureComponents num={where != 0 ? where : null}/>

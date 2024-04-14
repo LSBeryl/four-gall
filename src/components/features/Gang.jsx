@@ -58,7 +58,7 @@ const MemberBox = styled.div`
   margin-block: 1.5rem;
   border-collapse: collapse;
   padding: 1rem;
-  width: 25rem;
+  width: 20rem;
   background: #fff;
   border: 1px solid #eaeaea;
   border-radius: 20px;

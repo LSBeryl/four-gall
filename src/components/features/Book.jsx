@@ -53,7 +53,7 @@ export default function Book() {
         </Table>
       </TableWrap>
       <Warn>
-        예산 기록표 문의 <Name>2407 김승원</Name>, <Name>2404 김도윤</Name>
+        횡령 및 예산 문의 <Name>2407 김승원</Name>, <Name>2404 김도윤</Name>
       </Warn>
     </Wrap>
   )
