@@ -88,14 +88,14 @@ export default function Music() {
           const timeA = a.creationTime ? a.creationTime.seconds : null;
           const timeB = b.creationTime ? b.creationTime.seconds : null;
           return timeB - timeA;
-        }).map(v => (
+        }).map((v, i) => (
         <MusicBox>
           <Link to={v.src}>
             <Thumb src={getImgUrl(v.src)} />
           </Link>
           <Title>{v.title}</Title>
           <div><Name>{v.name}</Name>의 신청곡</div>
-          {v.title.includes('오딧세이') ? <EventImg src="/img/event/suk.png"/> : ''}
+          {i == musicData.length - 1 ? <EventImg src="/img/event/suk.png"/> : ''}
         </MusicBox>
       ))}
       
