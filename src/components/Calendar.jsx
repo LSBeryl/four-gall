@@ -51,30 +51,30 @@ export default function Calendar() {
 				else if(m > 40 && m < 50) setWhat('개인 정비')
 				else if(m >= 50) setWhat('조회')
 			} else if(h == 9) {
-				if(m >= 0 && m < 50) setWhat(`1교시, ${schedule[d - 1][0].subject}`)
+				if(m >= 0 && m < 50) setWhat(`1교시`)
 				else setWhat('쉬는')
 			} else if(h == 10) {
-				if(m >= 0 && m < 50) setWhat(`2교시, ${schedule[d - 1][1].subject}`)
+				if(m >= 0 && m < 50) setWhat(`2교시`)
 				else setWhat('쉬는')
 			} else if(h == 11) {
-				if(m >= 0 && m < 50) setWhat(`3교시, ${schedule[d - 1][2].subject}`)
+				if(m >= 0 && m < 50) setWhat(`3교시`)
 				else setWhat('쉬는')
 			} else if(h == 12) {
-				if(m >= 0 && m < 50) setWhat(`4교시, ${schedule[d - 1][3].subject}`)
+				if(m >= 0 && m < 50) setWhat(`4교시`)
 				else if(m > 50) setWhat('점심')
 			} else if(h == 13) {
 				if(m >= 0 && m < 50) setWhat('점심')
-				else if(m >= 50) setWhat(`5교시, ${schedule[d - 1][4].subject}`)
+				else if(m >= 50) setWhat(`5교시`)
 			} else if(h == 14) {
-				if(m < 40) setWhat(`5교시, ${schedule[d - 1][4].subject}`)
+				if(m < 40) setWhat(`5교시`)
 				else if(m >= 40 && m < 50) setWhat('쉬는')
-				else if(m >= 50) setWhat(`6교시, ${schedule[d - 1][5].subject}`)
+				else if(m >= 50) setWhat(`6교시`)
 			} else if(h == 15) {
-				if(m < 40) setWhat(`6교시, ${schedule[d - 1][5].subject}`)
+				if(m < 40) setWhat(`6교시`)
 				else if(m >= 40 && m < 50) setWhat('쉬는')
-				else if(m >= 50) setWhat(`7교시, ${schedule[d - 1][6].subject}`)
+				else if(m >= 50) setWhat(`7교시`)
 			} else if(h == 16) {
-				if(m < 40) setWhat(`7교시, ${schedule[d - 1][6].subject}`)
+				if(m < 40) setWhat(`7교시`)
 				else if(m > 40 && m <= 55) setWhat('청소')
 				else if(m > 55) setWhat('종례')
 			} else if(h == 17) {
