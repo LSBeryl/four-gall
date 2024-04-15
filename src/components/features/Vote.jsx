@@ -5,7 +5,6 @@ import { db } from '../../firebase.jsx'
 import { Trash2, Eye, Plus, X } from 'lucide-react'
 import { v4 } from "uuid";
 
-
 export default function Vote() {
 	const [voteArr, setVoteArr] = useState([])
   const [voteIds, setVoteIds] = useState([])
@@ -143,6 +142,7 @@ export default function Vote() {
           <Close>
             <X onClick={() => {setIsCreate(0)}}/>
           </Close>
+          <EventImg src="/img/event/kyu.png" alt="/img/event/kyu.png" />
           <input type="text" placeholder='투표 제목' onChange={e => {setTitle(e.target.value)}}/>
           <input type="text" placeholder='투표 설명 글' onChange={e => {setArticle(e.target.value)}}/>
           <input type="text" placeholder='개표 비밀번호' onChange={e => {setPw(e.target.value)}}/>
@@ -367,4 +367,12 @@ const Close = styled.div`
     width: 1rem;
     cursor: pointer;
   }
+`
+
+const EventImg = styled.img`
+  position: absolute;
+  height: 2rem;
+  right: calc(50% - 7rem);
+  top: calc(50% - 9.2rem);
+  transform: rotate(10deg);
 `

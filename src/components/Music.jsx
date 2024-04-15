@@ -95,8 +95,10 @@ export default function Music() {
           </Link>
           <Title>{v.title}</Title>
           <div><Name>{v.name}</Name>의 신청곡</div>
+          {v.title.includes('오딧세이') ? <EventImg src="/img/event/suk.png"/> : ''}
         </MusicBox>
       ))}
+      
 		</Wrap>
 	);
 }
@@ -141,4 +143,11 @@ const Button = styled.button`
 
 const Thumb = styled.img`
   width: clamp(300px, 50vw, 350px);
+`
+const EventImg = styled.img`
+  position: relative;
+  height: 2rem;
+  margin-bottom: -2rem;
+  bottom: 12.5rem;
+  right: 8.5rem;
 `
