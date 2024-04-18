@@ -3,16 +3,10 @@ import { data } from './wall.json'
 import { useState } from 'react'
 
 function PhotoElement(props) {
-  const censor = ['fuck.jpg']
-
   return (
     <ElemCon>
       <ElemImgCon onClick={props.onClick}>
-        {censor.indexOf(props.src) != -1 ? 
-        <Censor>검열된 이미지입니다.<span style={{fontSize: '0.7rem'}}>클릭해서 보기</span></Censor>
-        :
         <RealImg src={'/img/' + props.src} alt="" />
-        }
       </ElemImgCon>
       <ElemDesc>
         {props.desc}
