@@ -40,32 +40,24 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    async function get(token) {
-      const public_key = await axios.get('https://auth.dimigo.net/oauth/public')
-      const public_key_encodes = await jose.importSPKI(public_key.data, "RS256")
-      let data
-      if(localStorage.getItem('token')) {
-        const decodedToken = await jose.jwtVerify(localStorage.getItem('token'), public_key_encodes)
-        data = decodedToken.payload
-      } else {
-        const decodedToken = await jose.jwtVerify(token, public_key_encodes)
-        data = decodedToken.payload
-        
-      }
-      if(String(data.data.number).split('')[0] == '2' && String(data.data.number).split('')[1] == '4') {
-        localStorage.setItem('token', token)
-        setIsSubmitted(true)
-      } else {
-        setIsSubmitted(false)
-        alert('타반 사용 불가')
-      }
-    }
-    const query = new URLSearchParams(window.location.search)
-    if(typeof query.get('token') == 'string') {
-      get(query.get('token'))
-    }
-  }, [])
+  // useEffect(() => {
+  //   async function get(token) {
+  //     const public_key = await axios.get('https://auth.dimigo.net/oauth/public')
+  //     const public_key_encodes = await jose.importSPKI(public_key.data, "RS256")
+  //     const decodedToken = await jose.jwtVerify(token, public_key_encodes)
+  //     const data = decodedToken.payload
+  //     if(String(data.data.number).split('')[0] == '2' && String(data.data.number).split('')[1] == '4') {
+  //       setIsSubmitted(true)
+  //     } else {
+  //       setIsSubmitted(false)
+  //       alert('타반 사용 불가')
+  //     }
+  //   }
+  //   const query = new URLSearchParams(window.location.search)
+  //   if(typeof query.get('token') == 'string') {
+  //     get(query.get('token'))
+  //   }
+  // }, [])
 
   return (
     <BrowserRouter>
@@ -88,17 +80,17 @@ function App() {
             KDMHS 2-4
           </Title>
           <FormDiv>
-            {/* <input type="password" placeholder="입장 코드 입력" onChange={async (e) => {
+            <input type="password" placeholder="입장 코드 입력" onChange={async (e) => {
               const secret = doc(db, 'secret', 'secret');
               const secretSnapshot = await getDoc(secret);
               const secrett = secretSnapshot.data()
               if(secrett.str == e.target.value) setIsFour(true)
               else setIsFour(false)
             }}/>
-            {isFour && <button onClick={() => {setIsSubmitted(true)}}>Join</button>} */}
-            <Login to={`https://auth.dimigo.net/oauth?client=662096ea7a111ae4957030ca&redirect=${window.location.href}`}>
+            {isFour && <button onClick={() => {setIsSubmitted(true)}}>Join</button>}
+            {/* <Login to={`https://auth.dimigo.net/oauth?client=662096ea7a111ae4957030ca&redirect=${window.location.href}`}>
               <Bold>디미고인 계정</Bold>으로 로그인
-              </Login>
+            </Login> */}
           </FormDiv>
         </Contain>
       </Wrap>
