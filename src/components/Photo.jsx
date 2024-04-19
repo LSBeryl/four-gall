@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { data } from './wall.json'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function PhotoElement(props) {
   return (
@@ -30,6 +30,10 @@ export default function Photo() {
   const closeModal = () => {
     setModalOpen(false);
   }
+	
+  useEffect(() => {
+    document.title = window.location.href.includes('localhost') ? '사진 :: 4반 갤러리 테스트' : '사진 :: 4반 갤러리'
+  }, [])
 
   return (
     <>
@@ -107,13 +111,16 @@ const ModalBackdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 `
 
 const ModalContent = styled.div`
   max-width: 50vw;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
   img {
-    width: 100%;
+    width: 70%;
     height: auto;
   }
 	@media (max-width: 500px) {

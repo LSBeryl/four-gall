@@ -61,7 +61,11 @@ export default function Music() {
 		}
 
 		fetchData();
-	}, [])
+	}, [update])
+
+  useEffect(() => {
+    document.title = window.location.href.includes('localhost') ? '음악 신청 :: 4반 갤러리 테스트' : '음악 신청 :: 4반 갤러리'
+  }, [])
 
 	return (
 		<Wrap>

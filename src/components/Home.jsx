@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getDocs, collection, getDoc, doc, addDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { GoogleLogin } from '@react-oauth/google'
@@ -19,6 +19,11 @@ export default function Home() {
 
 	const [msg, setMsg] = useState('NULL')
 	const [id, setId] = useState('NULL')
+	const [wallPw, setWallPw] = useState('')
+
+	const nameInp = useRef()
+	const pwInp = useRef()
+	const msgInp = useRef()
 
 	const [update, setUpdate] = useState([])
 
@@ -58,6 +63,10 @@ export default function Home() {
 		return () => clearInterval(interval);
 	}, [curMsgIdx, messageNum])
 
+  useEffect(() => {
+    document.title = window.location.href.includes('localhost') ? '메인 :: 4반 갤러리 테스트' : '메인 :: 4반 갤러리'
+  }, [])
+
 	return (
 		<>
 			<Wrap>
@@ -80,35 +89,39 @@ export default function Home() {
 							<span>담벼락에 글 남기기</span>
 						</div>
 						<WallInputCon>
-							<div style={{
-								display: 'flex',
-								justifyContent: 'space-between'
-							}}>
-								<input type="text" placeholder='이름'
-								onInput={(e) => {console.log(setId(e.target.value))}} />
+							<div>
+								<WallInpCon>
+									<NamePwCon>
+										<WallName type="text" placeholder='이름'
+										onInput={(e) => {setId(e.target.value)}}
+										ref={nameInp} />
+										<WallPw type="text" placeholder='비밀번호'
+										onInput={(e) => {setWallPw(e.target.value)}}
+										ref={pwInp} />
+									</NamePwCon>
+									<WallMsgCon>
+										<WallMsg type="text" placeholder='남길 메시지'
+										onInput={(e) => {setMsg(e.target.value)}}
+										ref={msgInp} />
+									</WallMsgCon>
+								</WallInpCon>
 								<WallBtn
 								onClick={async () => {
-									if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '') {
+									if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '' || wallPw == 'NULL' || wallPw == '') {
 										alert('내용을 입력해주세요!')
 									} else {
-										let pw = prompt('글 삭제를 위해 비밀번호를 입력해주세요.')
-										while(pw == null || pw == '') {
-											alert('취소되었습니다.')
-											return 0
-										}
 										await addDoc(collection(db, "wall"), {
 											id: id,
 											msg: msg,
 											creationTime: new Date(),
-											pw: pw
+											pw: wallPw
 										});
+										nameInp.current.value = ''
+										pwInp.current.value = ''
+										msgInp.current.value = ''
 										setUpdate([...update])
-										alert('성공적으로 등록되었습니다.')
 									}
 								}}>글쓰기</WallBtn>
-							</div>
-							<div>
-								<input type="text" placeholder='남길 메시지' onInput={(e) => {console.log(setMsg(e.target.value))}} />
 							</div>
 						</WallInputCon>
 					</div>
@@ -195,43 +208,16 @@ const WallCon = styled.div`
 			padding: 2rem;
 		}
 	}
-	@media (max-width: 500px) {
-		font-size: 1.2rem;
-		& > div {
-			padding: 2rem 1rem;
-		}
-	}
 `
 
-const WallInputCon = styled.div`
+const WallInputCon = styled.div` // input 태그, 버튼 등을 포함한 엘리먼트들의 container
 	display: flex;
 	flex-direction: column;
 	gap: 0.3rem;
-	& input {
-		border: 1px solid #f5f5f5;
-		padding: 0.3rem;
-		border-radius: 10px;
-		padding: 1rem;
-		transition: all 0.2s ease;
-		font-size: 1rem;
-		outline: none;
-	}
-	& div:nth-child(1) input {
-		width: 30%;
-		padding: 0.5rem 1rem;
-	}
-	& div:nth-child(2) input {
-		width: 20rem;
-	}
-	& input:focus {
-		border: 1px solid #ddd;
-	}
-	@media (max-width: 500px) {
-		& div:nth-child(1) {
-			width: 15rem;
-		}
-		& div:nth-child(2) input {
-			width: 15rem;
+	& > div {
+		display: flex;
+		@media (max-width: 600px) {
+			flex-direction: column;
 		}
 	}
 `
@@ -243,6 +229,7 @@ const WallBtn = styled.button`
 	font-weight: 500;
 	padding: 0.5rem 1rem;
 	border: 1px solid #848484;
+	height: 2.2rem;
 	background: #fff;
 	color: #000;
 	&:hover {
@@ -319,4 +306,67 @@ const Logout = styled.div`
 	margin-bottom: -1rem;
 	margin-top: 0.3rem;
 	cursor: pointer;
+`
+
+const WallInpCon = styled.div` // input 태그들의 container
+	display: flex;
+	flex-direction: column;
+	width: 20rem;
+	& input {
+		height: 2rem;
+		margin: 0.2rem;
+		padding-inline: 0.7rem;
+	}
+	@media (max-width: 600px) {
+		width: 8rem;
+		& input {
+			width: calc(100% + 2.3rem);
+		}
+	}
+`
+
+const NamePwCon = styled.div`
+	width: 100%;
+`
+
+const WallMsgCon = styled.div`
+	width: 100%;
+`
+
+const WallName = styled.input`
+	border: 1px solid #f5f5f5;
+	border-radius: 10px;
+	transition: all 0.2s ease;
+	outline: none;
+	width: 30%;
+/* & input {
+	padding: 0.3rem;
+	padding: 1rem;
+	font-size: 1rem;
+}	*/
+	&:focus {
+		border: 1px solid #ddd;
+	}
+`
+
+const WallPw = styled.input`
+	border: 1px solid #f5f5f5;
+	border-radius: 10px;
+	transition: all 0.2s ease;
+	outline: none;
+	width: 50%;
+	&:focus {
+		border: 1px solid #ddd;
+	}
+`
+
+const WallMsg = styled.input`
+	border: 1px solid #f5f5f5;
+	border-radius: 10px;
+	transition: all 0.2s ease;
+	outline: none;
+	width: calc(100% - 1.8rem - 2px);
+	&:focus {
+		border: 1px solid #ddd;
+	}
 `

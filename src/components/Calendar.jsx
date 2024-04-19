@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default function Calendar() {
 	const [what, setWhat] = useState('')
@@ -10,6 +11,8 @@ export default function Calendar() {
 
 	const [comciData, setComciData] = useState([])
 	const [schedule, setSchedule] = useState([])
+
+	const [noloadtime, setnoloadtime] = useState(false)
 
 	useEffect(() => {
 		const axiosFetch = async () => {
@@ -121,6 +124,13 @@ export default function Calendar() {
 			else setClassTime(-1)
 		}
 	}, [])
+	
+  useEffect(() => {
+    document.title = window.location.href.includes('localhost') ? '시간표 :: 4반 갤러리 테스트' : '시간표 :: 4반 갤러리'
+		setTimeout(() => {
+			setnoloadtime(true)
+		}, 2000)
+  }, [])
 
 	return (
 		<>
@@ -128,6 +138,7 @@ export default function Calendar() {
 				<WhatShould>
 					지금은 <span style={{color: '#ee1183'}}>{what}</span> 시간입니다.
 				</WhatShould>
+				{noloadtime && !schedule[0] ? <NoLoad>시간표가 로딩되지 않나요? <Dev to="https://open.kakao.com/o/smWkgmRe">개발자</Dev>에게 문의하세요.</NoLoad> : <></>}
 				<Table>
 					<tbody>
 					<tr>
@@ -138,7 +149,7 @@ export default function Calendar() {
 						<td style={{fontWeight: day == 4 ? 'bold' : ''}}>목</td>
 						<td style={{fontWeight: day == 5 ? 'bold' : ''}}>금</td>
 					</tr>
-					{schedule[0] && [1, 2, 3, 4, 5, 6, 7].map(time => ( //1, 2, 3, 4, 5, 6, 7 > n교시
+					{schedule[0] ? [1, 2, 3, 4, 5, 6, 7].map(time => ( //1, 2, 3, 4, 5, 6, 7 > n교시
 						<tr key={time}>
 							<td>{time}교시</td>
 							{[0, 1, 2, 3, 4].map((curDay) => ( // 0, 1, 2, 3, 4 > 월~금
@@ -148,7 +159,19 @@ export default function Calendar() {
 								}}>{schedule[curDay][time - 1].subject}</td>
 							))}
 						</tr>
-					))}
+					))
+					:
+					[1, 2, 3, 4, 5, 6, 7].map(time => ( //1, 2, 3, 4, 5, 6, 7 > n교시
+						<tr key={time}>
+							<td>{time}교시</td>
+							{[0, 1, 2, 3, 4].map((curDay) => ( // 0, 1, 2, 3, 4 > 월~금
+								<td key={curDay}>
+									<Loading />
+								</td>
+							))}
+						</tr>
+					))
+					}
 					</tbody>
 				</Table>
 			</Wrap>
@@ -190,4 +213,33 @@ const Table = styled.table`
 		font-size: 1rem;
 		border-spacing: 0.4rem;
 	}
+`
+
+const Loading = styled.div`
+	@keyframes l1 {
+		20%{background-position:0%   0%, 50%  50%,100%  50%}
+    40%{background-position:0% 100%, 50%   0%,100%  50%}
+    60%{background-position:0%  50%, 50% 100%,100%   0%}
+    80%{background-position:0%  50%, 50%  50%,100% 100%}
+	}
+	width: 2rem;
+  aspect-ratio: 2;
+  --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+  background: 
+    var(--_g) 0%   50%,
+    var(--_g) 50%  50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100%/3) 50%;
+  animation: l1 1s infinite linear;
+`
+
+const NoLoad = styled.div`
+	margin-block: -1.3rem;
+	color: #9a9a9a;
+	font-size: 0.85rem;
+`
+
+const Dev = styled(Link)`
+  color: #707070;
+  font-weight: 500;
 `
