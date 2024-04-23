@@ -49,7 +49,7 @@ export default function Meal() {
 
   return (
     <Wrap>
-      <Title>{curDate ? curDate : 'Loading...'} 급식</Title>
+      <Title>{curDate ? curDate : ''} 급식</Title>
       <MealCon>
         {!isMobile ?
           ['아침', '점심', '저녁'].map((type, i) => (
@@ -60,7 +60,7 @@ export default function Meal() {
                   <MealMenu>
                     - {menu}
                   </MealMenu>
-                )) : 'Loading...'}
+                )) : '데이터가 없습니다'}
               </MealMenuCon>
             </MealBox>
           ))
@@ -73,7 +73,7 @@ export default function Meal() {
                 <MealMenu>
                   - {menu}
                 </MealMenu>
-              )) : 'Loading...'}
+              )) : '데이터가 없습니다'}
             </MealMenuCon>
           </MealBox>
           :
@@ -85,7 +85,7 @@ export default function Meal() {
                 <MealMenu>
                   - {menu}
                 </MealMenu>
-              )) : 'Loading...'}
+              )) : '데이터가 없습니다'}
             </MealMenuCon>
           </MealBox>
           :
@@ -96,7 +96,7 @@ export default function Meal() {
                 <MealMenu>
                   - {menu}
                 </MealMenu>
-              )) : 'Loading...'}
+              )) : '데이터가 없습니다'}
             </MealMenuCon>
           </MealBox>
         }
