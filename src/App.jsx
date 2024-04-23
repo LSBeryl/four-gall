@@ -61,7 +61,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isSubmitted ?
+      {isSubmitted || window.location.href.includes('localhost') ?
       <Routes>
         {/* {isSubmitted ? */}
         <Route element={<Layout />}>

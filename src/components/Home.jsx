@@ -5,6 +5,8 @@ import { getDocs, collection, getDoc, doc, addDoc, deleteDoc } from 'firebase/fi
 import { db } from '../firebase'
 import { GoogleLogin } from '@react-oauth/google'
 
+import Meal from './Meal'
+
 function formatTime(t) {
 	const wallTime = new Date(t)
 	const formatWallTime = `${wallTime.getFullYear()}-${wallTime.getMonth() + 1 < 10 ? '0' + (wallTime.getMonth() + 1) : wallTime.getMonth() + 1}-${wallTime.getDate() < 10 ? '0' + wallTime.getDate() : wallTime.getDate()} ${wallTime.getHours() < 10 ? '0' + wallTime.getHours() : wallTime.getHours()}:${wallTime.getMinutes() < 10 ? '0' + wallTime.getMinutes() : wallTime.getMinutes()}:${wallTime.getSeconds() < 10 ? '0' + wallTime.getSeconds() : wallTime.getSeconds()}`
@@ -17,6 +19,8 @@ export default function Home() {
 	const [wallMessages, setWallMessages] = useState([{msg: 'Loading', id: 'Loading'}])
 	const [wallIds, setWallIds] = useState([])
 
+	const [update, setUpdate] = useState([])
+
 	const [msg, setMsg] = useState('NULL')
 	const [id, setId] = useState('NULL')
 	const [wallPw, setWallPw] = useState('')
@@ -24,8 +28,6 @@ export default function Home() {
 	const nameInp = useRef()
 	const pwInp = useRef()
 	const msgInp = useRef()
-
-	const [update, setUpdate] = useState([])
 
 	useEffect(() => {
 		async function fetchWallIds() {
@@ -70,6 +72,7 @@ export default function Home() {
 	return (
 		<>
 			<Wrap>
+				<Meal />
 				<MessageWrap>
 					<div style={{width: '676px', background: '#fff', border: '1px solid #ebedef', borderRadius: '10px', paddingBlock: '2rem', paddingInline: '0.3rem', boxSizing: 'border-box', lineHeight: '3rem'}}>
 						<div style={{ fontSize: '1.4rem', fontWeight: '600'}}>담벼락</div>
@@ -83,30 +86,17 @@ export default function Home() {
 						<WallMessageId><span style={{color: '#ee1183', fontWeight: '700'}}>{wallMessages[curMsgIdx].id}</span>의 글</WallMessageId>
 					</div>
 				</MessageWrap>
-				<WallCon>
-					<div>
-						<div style={{marginBottom: '2rem', textAlign: 'center'}}>
-							<span>담벼락에 글 남기기</span>
-						</div>
-						<WallInputCon>
-							<div>
-								<WallInpCon>
-									<NamePwCon>
-										<WallName type="text" placeholder='이름'
-										onInput={(e) => {setId(e.target.value)}}
-										ref={nameInp} />
-										<WallPw type="text" placeholder='비밀번호'
-										onInput={(e) => {setWallPw(e.target.value)}}
-										ref={pwInp} />
-									</NamePwCon>
-									<WallMsgCon>
-										<WallMsg type="text" placeholder='남길 메시지'
-										onInput={(e) => {setMsg(e.target.value)}}
-										ref={msgInp} />
-									</WallMsgCon>
-								</WallInpCon>
-								<WallBtn
-								onClick={async () => {
+				<WallInputWrap>
+					<InputCon>
+						<InputConTitle>담벼락에 글 남기기</InputConTitle>
+						<FormCon>
+							<Message placeholder="남길 메시지" onInput={(e) => {setMsg(e.target.value)}} ref={msgInp}></Message>
+							<InfoCon>
+								<InfoInputCon>
+									<Name type="text" placeholder="이름" onInput={(e) => {setId(e.target.value)}} ref={nameInp}/>
+									<Pw type="password" placeholder="비밀번호" onInput={(e) => {setWallPw(e.target.value)}} ref={pwInp} />
+								</InfoInputCon>
+								<Submit id="submit" onClick={async () => {
 									if(id == 'NULL' || msg == 'NULL' || id == '' || msg == '' || wallPw == 'NULL' || wallPw == '') {
 										alert('내용을 입력해주세요!')
 									} else {
@@ -121,11 +111,11 @@ export default function Home() {
 										msgInp.current.value = ''
 										setUpdate([...update])
 									}
-								}}>글쓰기</WallBtn>
-							</div>
-						</WallInputCon>
-					</div>
-				</WallCon>
+								}}>글쓰기</Submit>
+							</InfoCon>
+						</FormCon>
+					</InputCon>
+				</WallInputWrap>
 				<ShowCon>
 					<ShowData>
 						<WallTitle>전체 담벼락 <Refresh onClick={() => {
@@ -192,72 +182,11 @@ const MessageWrap = styled(Wrap)`
 	padding: 0;
 `
 
-const WallCon = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 2rem 0;
-	gap: 2rem;
-	font-size: 1.7rem;
-	font-weight: 500;
-	& > div {
-		background: #fff;
-		border: 1px solid #ebedef;
-		border-radius: 10px;
-		padding: 5rem 10rem;
-	}
-	@media (max-width: 800px) {
-		font-size: 1.5rem;
-		& > div {
-			padding: 2rem;
-		}
-	}
-`
-
-const WallInputCon = styled.div` // input 태그, 버튼 등을 포함한 엘리먼트들의 container
-	display: flex;
-	flex-direction: column;
-	gap: 0.3rem;
-	& > div {
-		display: flex;
-		@media (max-width: 600px) {
-			flex-direction: column;
-		}
-	}
-`
-
-const WallBtn = styled.button`
-	border: 0;
-	padding: 0.5rem 1rem;
-	border-radius: 30px;
-	font-weight: 500;
-	padding: 0.5rem 1rem;
-	border: 1px solid #848484;
-	height: 2.2rem;
-	background: #fff;
-	color: #000;
-	&:hover {
-		background: #000;
-		color: #fff;
-	}
-	transition: all 0.2s ease;
-	cursor: pointer;
-`
-
 const ShowCon = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-`
-
-const ShowBtn = styled.button`
-	margin-bottom: 2rem;
-	border: 0;
-  background: transparent;
-	font-size: 1.2rem;
-	cursor: pointer;
-	display: flex;
 `
 
 const ShowData = styled.div`
@@ -303,78 +232,6 @@ const WallMessageId = styled.div`
 	}
 `
 
-const Logout = styled.div`
-	font-size: 0.9rem;
-	color: #595959;
-	font-weight: 300;
-	margin-bottom: -1rem;
-	margin-top: 0.3rem;
-	cursor: pointer;
-`
-
-const WallInpCon = styled.div` // input 태그들의 container
-	display: flex;
-	flex-direction: column;
-	width: 20rem;
-	& input {
-		height: 2rem;
-		margin: 0.2rem;
-		padding-inline: 0.7rem;
-	}
-	@media (max-width: 600px) {
-		width: 8rem;
-		& input {
-			width: calc(100% + 2.3rem);
-		}
-	}
-`
-
-const NamePwCon = styled.div`
-	width: 100%;
-`
-
-const WallMsgCon = styled.div`
-	width: 100%;
-`
-
-const WallName = styled.input`
-	border: 1px solid #f5f5f5;
-	border-radius: 10px;
-	transition: all 0.2s ease;
-	outline: none;
-	width: 30%;
-/* & input {
-	padding: 0.3rem;
-	padding: 1rem;
-	font-size: 1rem;
-}	*/
-	&:focus {
-		border: 1px solid #ddd;
-	}
-`
-
-const WallPw = styled.input`
-	border: 1px solid #f5f5f5;
-	border-radius: 10px;
-	transition: all 0.2s ease;
-	outline: none;
-	width: 50%;
-	&:focus {
-		border: 1px solid #ddd;
-	}
-`
-
-const WallMsg = styled.input`
-	border: 1px solid #f5f5f5;
-	border-radius: 10px;
-	transition: all 0.2s ease;
-	outline: none;
-	width: calc(100% - 1.8rem - 2px);
-	&:focus {
-		border: 1px solid #ddd;
-	}
-`
-
 const WallTitle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -392,4 +249,107 @@ const Refresh = styled(RotateCw)`
 	&:hover {
 		transform: rotate(720deg);
 	}
+`
+
+const WallInputWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-block: 2rem;
+  width: 100%;
+`
+
+const InputCon = styled.div`
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #eaeaea;
+  padding: 4rem;
+  box-sizing: border-box;
+  max-width: 676px;
+  width: 100%;
+`
+
+const InputConTitle = styled.div`
+  font-size: 1.3rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+`
+
+const FormCon = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`
+
+const Message = styled.textarea`
+  resize: none;
+  outline: none;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  height: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+`
+
+const InfoCon = styled.div`
+  display: flex;
+  justify-content: space-between;
+  & input {
+    padding: 0.5rem;
+    outline: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    &:focus {
+      border: 1px solid #ddd;
+    }
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+`
+
+const InfoInputCon = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    & input {
+      width: 50%;
+    }
+  }
+`
+
+const Name = styled.input`
+  width: 25%;
+`
+
+const Pw = styled.input`
+  width: 35%;
+`
+
+const Submit = styled.button`
+    border-radius: 20px;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    width: 8rem;
+    border: 1px solid rgb(132, 132, 132);
+    height: 2.2rem;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    transition: all 0.2s ease 0s;
+    cursor: pointer;
+    &:hover {
+      color: #fff;
+      background: #000;
+      border: 1px solid #000;
+    }
 `

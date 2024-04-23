@@ -17,11 +17,10 @@ export default function Calendar() {
 	useEffect(() => {
 		const axiosFetch = async () => {
 			try {
-				const response = await axios.get('https://port-0-fourgall-back-2aat2cluqx5by1.sel5.cloudtype.app/t');
-				console.log(response.data[4][0].subject)
-				setComciData(response.data)
+				const response = await axios.get('https://port-0-fourgall-back-2aat2cluqx5by1.sel5.cloudtype.app/t') // axios.get으로 데이터 받아옴
+				setComciData(response.data) // 받아온 데이터를 state에 저장
 			} catch (error) {
-				console.error('Error fetching timetable data:', error);
+				console.error('Error fetching timetable data:', error); // 에러 메시지
 			}
 		}
 		axiosFetch()
