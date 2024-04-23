@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronUp, Trash2, RotateCw } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { getDocs, collection, getDoc, doc, addDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -128,45 +128,49 @@ export default function Home() {
 				</WallCon>
 				<ShowCon>
 					<ShowData>
-							{wallMessages.sort((a, b) => {
-									const timeA = a.creationTime ? a.creationTime.seconds : null;
-									const timeB = b.creationTime ? b.creationTime.seconds : null;
-									return timeB - timeA;
-								}).map(v => (
-									<ShowDataCom>
-											<div>
-												<span style={{fontWeight: 'bold'}}>{v.id}</span>
-												<WallTime>{v.creationTime && formatTime(v.creationTime.seconds * 1000)}</WallTime><br/>
-												<span style={{fontSize: '0.9rem'}}>{v.msg}</span>
-											</div>
-											<div>
-												<Trash2 onClick={() => {
-													wallIds.forEach(async (id) => {
-														const wall = doc(db, 'wall', id);
-														const wallSnapshot = await getDoc(wall);
-														const walls = wallSnapshot.data()
-														if(v.msg == walls.msg && v.id == v.id) {
-															const pw = prompt('비밀번호를 입력하세요.')
-															if(v.pw) {
-																if(pw == v.pw || pw == '7132') {
-																	await deleteDoc(doc(db, "wall", id))
-																	alert('삭제되었습니다.')
-																	setUpdate([...update])
-																}
-															} else {
-																if(pw == '7132') {
-																	await deleteDoc(doc(db, "wall", id))
-																	alert('삭제되었습니다.')
-																	setUpdate([...update])
-																}
+						<WallTitle>전체 담벼락 <Refresh onClick={() => {
+							setUpdate([...update])
+							setCurMsgIdx(0)
+						}}/></WallTitle>
+						{wallMessages.sort((a, b) => {
+								const timeA = a.creationTime ? a.creationTime.seconds : null;
+								const timeB = b.creationTime ? b.creationTime.seconds : null;
+								return timeB - timeA;
+							}).map(v => (
+								<ShowDataCom>
+										<div>
+											<span style={{fontWeight: 'bold'}}>{v.id}</span>
+											<WallTime>{v.creationTime && formatTime(v.creationTime.seconds * 1000)}</WallTime><br/>
+											<span style={{fontSize: '0.9rem'}}>{v.msg}</span>
+										</div>
+										<div>
+											<Trash2 onClick={() => {
+												wallIds.forEach(async (id) => {
+													const wall = doc(db, 'wall', id);
+													const wallSnapshot = await getDoc(wall);
+													const walls = wallSnapshot.data()
+													if(v.msg == walls.msg && v.id == v.id) {
+														const pw = prompt('비밀번호를 입력하세요.')
+														if(v.pw) {
+															if(pw == v.pw || pw == '7132') {
+																await deleteDoc(doc(db, "wall", id))
+																alert('삭제되었습니다.')
+																setUpdate([...update])
+															}
+														} else {
+															if(pw == '7132') {
+																await deleteDoc(doc(db, "wall", id))
+																alert('삭제되었습니다.')
+																setUpdate([...update])
 															}
 														}
-													})
-												}} style={{cursor: 'pointer'}} color="#6f6f6f" width="1.1rem" />
-											</div>
-									</ShowDataCom>
-								))
-							}
+													}
+												})
+											}} style={{cursor: 'pointer'}} color="#6f6f6f" width="1.1rem" />
+										</div>
+								</ShowDataCom>
+							))
+						}
 					</ShowData>
 				</ShowCon>
 			</Wrap>
@@ -368,5 +372,24 @@ const WallMsg = styled.input`
 	width: calc(100% - 1.8rem - 2px);
 	&:focus {
 		border: 1px solid #ddd;
+	}
+`
+
+const WallTitle = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.1rem;
+	font-weight: 500;
+	gap: 0.2rem;
+	user-select: none;
+`
+
+const Refresh = styled(RotateCw)`
+	height: 1rem;
+	cursor: pointer;
+	transition: all 0.5s ease;
+	&:hover {
+		transform: rotate(720deg);
 	}
 `
