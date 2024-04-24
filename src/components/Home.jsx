@@ -85,7 +85,7 @@ export default function Home() {
 						</WallMessage>
 						<WallMessageId><span style={{color: '#ee1183', fontWeight: '700'}}>{wallMessages[curMsgIdx].id}</span>의 글</WallMessageId>
 					</div>
-				</MessageWrap>
+				</MessageWrap>a
 				<WallInputWrap>
 					<InputCon>
 						<InputConTitle>담벼락에 글 남기기</InputConTitle>
@@ -291,7 +291,7 @@ const Message = styled.textarea`
   resize: none;
   outline: none;
   border: 1px solid #eaeaea;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 5rem;
   width: 100%;
   box-sizing: border-box;
