@@ -39,9 +39,8 @@ function FeatureComponents(props) {
 }
 
 export default function Feature() {
-	const [where, setWhere] = useState(0) // 0번 : 아무 곳에도 이동 X, 1~6번 : 각각 자리, 번호, 투표, 안내, 위치, 링크, 노트
+	const [where, setWhere] = useState(0) // 0번 : 아무 곳에도 이동 X, 1~6번 : 각각 자리, 번호, 투표, 조직, 예산, 링크, 노트
 
-	
   useEffect(() => {
     document.title = window.location.href.includes('localhost') ? '유용한 기능 :: 4반 갤러리 테스트' : '유용한 기능 :: 4반 갤러리'
   }, [])

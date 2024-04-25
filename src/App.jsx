@@ -61,7 +61,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isSubmitted || window.location.href.includes('localhost') ?
+      {isSubmitted ?
       <Routes>
         {/* {isSubmitted ? */}
         <Route element={<Layout />}>
@@ -80,14 +80,18 @@ function App() {
             KDMHS 2-4
           </Title>
           <FormDiv>
-            <input type="password" placeholder="입장 코드 입력" onChange={async (e) => {
+            <input type="password" placeholder="입장 코드 입력"
+            onChange={async (e) => {
               const secret = doc(db, 'secret', 'secret');
               const secretSnapshot = await getDoc(secret);
               const secrett = secretSnapshot.data()
               if(secrett.str == e.target.value) setIsFour(true)
               else setIsFour(false)
+            }}
+            onKeyDown={(e) => {
+              if(e.key == 'Enter' && isFour) setIsSubmitted(true)
             }}/>
-            {isFour && <button onClick={() => {setIsSubmitted(true)}}>Join</button>}
+            {isFour && <button onClick={() => {setIsSubmitted(true)}} autofocus>Join</button>}
             {/* <Login to={`https://auth.dimigo.net/oauth?client=662096ea7a111ae4957030ca&redirect=${window.location.href}`}>
               <Bold>디미고인 계정</Bold>으로 로그인
             </Login> */}

@@ -85,7 +85,7 @@ export default function Home() {
 						</WallMessage>
 						<WallMessageId><span style={{color: '#ee1183', fontWeight: '700'}}>{wallMessages[curMsgIdx].id}</span>의 글</WallMessageId>
 					</div>
-				</MessageWrap>a
+				</MessageWrap>
 				<WallInputWrap>
 					<InputCon>
 						<InputConTitle>담벼락에 글 남기기</InputConTitle>
