@@ -102,7 +102,6 @@ function App() {
     </BrowserRouter>
   )
 }
-
 export default App
 
 const Wrap = styled.div`
