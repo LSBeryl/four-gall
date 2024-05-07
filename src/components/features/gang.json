@@ -16,7 +16,7 @@
       ]
     },
     {
-      "department": "기획재정부",
+      "department": "기획부",
       "members": [
         {
           "name": "이재영",
@@ -37,7 +37,12 @@
           "name": "박연진",
           "role": "인쇄",
           "desc": "학급 문서, 서류 출력"
-        },
+        }
+      ]
+    },
+    {
+      "department": "재정부",
+      "members": [
         {
           "name": "김도윤",
           "role": "회계부장",
@@ -56,7 +61,7 @@
       ]
     },
     {
-      "department": "학습부",
+      "department": "교육부",
       "members": [
         {
           "name": "김민서",
@@ -109,6 +114,11 @@
       "department": "과학기술정보통신부",
       "members": [
         {
+          "name": "신현솔",
+          "role": "IT 부장",
+          "desc": "IT 및 기자재 관리"
+        },
+        {
           "name": "김병규",
           "role": "자료구조 학습 위원",
           "desc": "학습 도우미"
@@ -137,11 +147,6 @@
           "name": "이기원",
           "role": "전기",
           "desc": "콘센트 연결, 소등"
-        },
-        {
-          "name": "신현솔",
-          "role": "기자재",
-          "desc": "TV, 컴퓨터 연결 보조"
         },
         {
           "name": "강민상",
