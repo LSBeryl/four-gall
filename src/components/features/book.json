@@ -59,6 +59,16 @@
       "spent": "60000",
       "note": "",
       "link": ""
+    },
+    {
+      "date": "06.17",
+      "type": "spent",
+      "div": "구매",
+      "what": "자습 캔디 구매",
+      "income": "0",
+      "spent": "13710",
+      "note": "",
+      "link": ""
     }
   ]
 }
