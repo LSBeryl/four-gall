@@ -97,7 +97,7 @@ function App() {
   useEffect(() => {
 		const axiosFetch = async () => {
 			try {
-				const response = await axios.get(`https://api.xn--299a1v27nvthhjj.com/?date=${getDate()}`)
+				const response = await axios.get(`https://api.xn--299a1v27nvthhjj.com/meal/${getDate()}`)
         setMeal(response.data)
 			} catch (error) {
 				console.error('Error fetching meal data:', error);
