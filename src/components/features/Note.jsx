@@ -1,7 +1,14 @@
-import { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { getDocs, collection, getDoc, doc, addDoc, deleteDoc } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import {
+  getDocs,
+  collection,
+  getDoc,
+  doc,
+  addDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "../../firebase";
 
 // 상단에 수행 추가 박스
 // 수행 추가 박스 내용
@@ -17,46 +24,75 @@ import { db } from '../../firebase'
 // 날짜 밑에 상세 내용 표시
 
 export default function Note() {
-  const subjects = ['문학', '수I', '수II', '미적분', '영I', '화학', '물리학', '한국사', '중국어', '성직', '자료구조', '응화']
-  const [scheduleType, setScheduleType] = useState(0) // 0 : 일일, 1 : 기간
-  const [subjectInp, setSubjectInp] = useState('')
-  const [scheduleOne, setSubjectOne] = useState('')
-  const [scheduleTwo, setSubjectTwo] = useState('')
+  const subjects = [
+    "문학",
+    "수I",
+    "수II",
+    "미적분",
+    "영I",
+    "화학",
+    "물리학",
+    "한국사",
+    "중국어",
+    "성직",
+    "자료구조",
+    "응화",
+  ];
+  const [scheduleType, setScheduleType] = useState(0); // 0 : 일일, 1 : 기간
+  const [subjectInp, setSubjectInp] = useState("");
+  const [scheduleOne, setSubjectOne] = useState("");
+  const [scheduleTwo, setSubjectTwo] = useState("");
 
-	const [testsData, setTestsData] = useState([])
-  
-	const [update, setUpdate] = useState([])
+  const [testsData, setTestsData] = useState([]);
 
-	useEffect(() => {
-		async function fetchTests() {
-			const testsCollection = collection(db, 'tests');
-			const querySnapshot = await getDocs(testsCollection);
-			const docIds = querySnapshot.docs.map(doc => doc.id);
-			const promises = docIds.map(async (id) => {
-				const tests = doc(db, 'tests', id);
-				const testsSnapshot = await getDoc(tests);
-				return testsSnapshot.data();
-			});
+  const [update, setUpdate] = useState([]);
 
-			const results = await Promise.all(promises);
-			return results
-		}
+  useEffect(() => {
+    async function fetchTests() {
+      const testsCollection = collection(db, "tests");
+      const querySnapshot = await getDocs(testsCollection);
+      const docIds = querySnapshot.docs.map((doc) => doc.id);
+      const promises = docIds.map(async (id) => {
+        const tests = doc(db, "tests", id);
+        const testsSnapshot = await getDoc(tests);
+        return testsSnapshot.data();
+      });
 
-		async function fetchData() {
-			const data = await fetchTests();
-			// setWallMessages(data);
-			// setMessageNum(data.length - 1)
-      setTestsData(data)
-      console.log(data)
-		}
+      const results = await Promise.all(promises);
+      return results;
+    }
 
-		fetchData();
-	}, [update])
+    async function fetchData() {
+      const data = await fetchTests();
+      // setWallMessages(data);
+      // setMessageNum(data.length - 1)
+      setTestsData(data);
+      console.log(data);
+    }
+
+    fetchData();
+  }, [update]);
 
   function formatTime(t) {
-    const wallTime = new Date(t)
-    const formatWallTime = `${wallTime.getFullYear()}-${wallTime.getMonth() + 1 < 10 ? '0' + (wallTime.getMonth() + 1) : wallTime.getMonth() + 1}-${wallTime.getDate() < 10 ? '0' + wallTime.getDate() : wallTime.getDate()} ${wallTime.getHours() < 10 ? '0' + wallTime.getHours() : wallTime.getHours()}:${wallTime.getMinutes() < 10 ? '0' + wallTime.getMinutes() : wallTime.getMinutes()}:${wallTime.getSeconds() < 10 ? '0' + wallTime.getSeconds() : wallTime.getSeconds()}`
-    return formatWallTime
+    const wallTime = new Date(t);
+    const formatWallTime = `${wallTime.getFullYear()}-${
+      wallTime.getMonth() + 1 < 10
+        ? "0" + (wallTime.getMonth() + 1)
+        : wallTime.getMonth() + 1
+    }-${
+      wallTime.getDate() < 10 ? "0" + wallTime.getDate() : wallTime.getDate()
+    } ${
+      wallTime.getHours() < 10 ? "0" + wallTime.getHours() : wallTime.getHours()
+    }:${
+      wallTime.getMinutes() < 10
+        ? "0" + wallTime.getMinutes()
+        : wallTime.getMinutes()
+    }:${
+      wallTime.getSeconds() < 10
+        ? "0" + wallTime.getSeconds()
+        : wallTime.getSeconds()
+    }`;
+    return formatWallTime;
   }
 
   return (
@@ -69,10 +105,24 @@ export default function Note() {
         <SubjectCon>
           과목 <Bars>|</Bars>
           <SubjectInpCon>
-            {subjects.map(v => (
-              <div>
-                <SubjectInput type="radio" id={v} name="subject" onClick={() => {setSubjectInp(v)}} />
-                <Label htmlFor={v} onClick={() => {setSubjectInp(v)}}>{v}</Label>
+            {subjects.map((v, i) => (
+              <div key={i}>
+                <SubjectInput
+                  type="radio"
+                  id={v}
+                  name="subject"
+                  onClick={() => {
+                    setSubjectInp(v);
+                  }}
+                />
+                <Label
+                  htmlFor={v}
+                  onClick={() => {
+                    setSubjectInp(v);
+                  }}
+                >
+                  {v}
+                </Label>
               </div>
             ))}
           </SubjectInpCon>
@@ -84,74 +134,116 @@ export default function Note() {
         <ScheduleCon>
           <ScheduleBtnCon>
             수행평가 날짜/기간 <Bars>|</Bars>
-            <input type="radio" name="schedule" id="one" defaultChecked onClick={() => {setScheduleType(0)}}/>
-            <label htmlFor="one" onClick={() => {setScheduleType(0)}}>일일 수행</label>
-            <input type="radio" name="schedule" id="long" onClick={() => {setScheduleType(1)}}/>
-            <label htmlFor="long" onClick={() => {setScheduleType(1)}}>기간 수행</label>
+            <input
+              type="radio"
+              name="schedule"
+              id="one"
+              defaultChecked
+              onClick={() => {
+                setScheduleType(0);
+              }}
+            />
+            <label
+              htmlFor="one"
+              onClick={() => {
+                setScheduleType(0);
+              }}
+            >
+              일일 수행
+            </label>
+            <input
+              type="radio"
+              name="schedule"
+              id="long"
+              onClick={() => {
+                setScheduleType(1);
+              }}
+            />
+            <label
+              htmlFor="long"
+              onClick={() => {
+                setScheduleType(1);
+              }}
+            >
+              기간 수행
+            </label>
           </ScheduleBtnCon>
           <ScheduleInpCon>
-            {scheduleType == 0 ?
-            <>
-              <input type="date" onInput={e => {
-                setSubjectOne(e.target.value)
-              }} />
-            </>
-            :
-            <>
-              <input type="date" onInput={e => {
-                setSubjectOne(e.target.value)
-              }} /> ~ <input type="date" onInput={e => {
-                setSubjectTwo(e.target.value)
-              }} />
-            </>
-            }
+            {scheduleType == 0 ? (
+              <>
+                <input
+                  type="date"
+                  onInput={(e) => {
+                    setSubjectOne(e.target.value);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <input
+                  type="date"
+                  onInput={(e) => {
+                    setSubjectOne(e.target.value);
+                  }}
+                />{" "}
+                ~{" "}
+                <input
+                  type="date"
+                  onInput={(e) => {
+                    setSubjectTwo(e.target.value);
+                  }}
+                />
+              </>
+            )}
           </ScheduleInpCon>
         </ScheduleCon>
         <Submit>
-          <button onClick={async () => {
-            const userPw = prompt('비밀번호를 입력하세요.')
-            const secret = doc(db, 'secret', 'testSubmit');
-            const secretSnapshot = await getDoc(secret);
-            const secrett = secretSnapshot.data()
-            console.log(secrett)
-            if(secrett.pw == userPw) {
-              await addDoc(collection(db, "tests"), {
-                title: document.getElementById("title").value,
-                subject: subjectInp,
-                desc: document.getElementById("detail").value,
-                scheduleType: scheduleType,
-                scheduleOne: scheduleOne,
-                scheduleTwo: scheduleTwo
-              });
-              setUpdate([...update])
-            } else {
-              alert('등록에 실패하였습니다.')
-            }
-          }}>등록</button>
+          <button
+            onClick={async () => {
+              const userPw = prompt("비밀번호를 입력하세요.");
+              const secret = doc(db, "secret", "testSubmit");
+              const secretSnapshot = await getDoc(secret);
+              const secrett = secretSnapshot.data();
+              console.log(secrett);
+              if (secrett.pw == userPw) {
+                await addDoc(collection(db, "tests"), {
+                  title: document.getElementById("title").value,
+                  subject: subjectInp,
+                  desc: document.getElementById("detail").value,
+                  scheduleType: scheduleType,
+                  scheduleOne: scheduleOne,
+                  scheduleTwo: scheduleTwo,
+                });
+                setUpdate([...update]);
+              } else {
+                alert("등록에 실패하였습니다.");
+              }
+            }}
+          >
+            등록
+          </button>
         </Submit>
       </CreateBox>
-      {testsData.map(v => (
+      {testsData.map((v) => (
         <TestBox>
-          <Title>{v.title} <Bars>|</Bars> {v.subject}</Title>
-          {
-            v.scheduleType == 0 ?
-            <Schedule>
-              {v.scheduleOne}
-            </Schedule>
-            :
+          <Title>
+            {v.title} <Bars>|</Bars> {v.subject}
+          </Title>
+          {v.scheduleType == 0 ? (
+            <Schedule>{v.scheduleOne}</Schedule>
+          ) : (
             <Schedule>
               {v.scheduleOne} ~ {v.scheduleTwo}
             </Schedule>
-          }
+          )}
           {v.desc}
         </TestBox>
       ))}
     </Wrap>
-  )
+  );
 }
 
-const Wrap = styled.div`
-`
+const Wrap = styled.div``;
 
 const CreateBox = styled.div`
   border: 1px solid #eaeaea;
@@ -165,7 +257,7 @@ const CreateBox = styled.div`
   @media (max-width: 768px) {
     width: 70vw;
   }
-`
+`;
 
 const TitleCon = styled.div`
   font-size: 1.1rem;
@@ -174,12 +266,12 @@ const TitleCon = styled.div`
   gap: 0.5rem;
   align-items: center;
   flex-wrap: wrap;
-`
+`;
 
 const Bars = styled.span`
   color: #eaeaea;
   user-select: none;
-`
+`;
 
 const TitleInp = styled.input`
   outline: none;
@@ -188,7 +280,7 @@ const TitleInp = styled.input`
   transition: all 0.2s ease;
   width: clamp(50px, 50vw, 338px);
   padding: 0.3rem 0.5rem;
-`
+`;
 
 const SubjectCon = styled.div`
   font-size: 1.1rem;
@@ -196,29 +288,27 @@ const SubjectCon = styled.div`
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-`
+`;
 
 const SubjectInpCon = styled.div`
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-`
+`;
 
-const SubjectInput = styled.input`
-  
-`
+const SubjectInput = styled.input``;
 
 const Label = styled.label`
   font-size: 0.9rem;
   font-weight: 600;
-`
+`;
 
 const DetailCon = styled.div`
   font-size: 1.1rem;
   font-weight: 600;
   display: flex;
   gap: 0.5rem;
-`
+`;
 
 const DetailInp = styled.textarea`
   resize: none;
@@ -229,9 +319,9 @@ const DetailInp = styled.textarea`
   height: 5rem;
   box-sizing: border-box;
   padding: 0.3rem;
-`
+`;
 
-const ScheduleCon = styled.div``
+const ScheduleCon = styled.div``;
 
 const ScheduleBtnCon = styled.div`
   font-size: 1.1rem;
@@ -243,11 +333,11 @@ const ScheduleBtnCon = styled.div`
     font-size: 0.9rem;
     font-weight: 600;
   }
-`
+`;
 
 const ScheduleInpCon = styled.div`
   margin-top: 0.5rem;
-`
+`;
 
 const Submit = styled.div`
   display: flex;
@@ -269,7 +359,7 @@ const Submit = styled.div`
     transition: all 0.2s ease;
     cursor: pointer;
   }
-`
+`;
 
 ////////////////////////////////////////////////////
 
@@ -282,12 +372,12 @@ const TestBox = styled.div`
   gap: 1rem;
   flex-wrap: wrap;
   margin-top: 3rem;
-`
+`;
 
 const Title = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
-`
+`;
 
 const Schedule = styled.div`
   display: flex;
@@ -295,6 +385,6 @@ const Schedule = styled.div`
   font-weight: 500;
   margin-block: -0.5rem;
   &::before {
-    content: '수행 일자 : ';
+    content: "수행 일자 : ";
   }
-`
+`;
