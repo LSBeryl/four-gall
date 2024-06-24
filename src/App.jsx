@@ -41,7 +41,6 @@ function App() {
   const init = async () => {
     // 처음 마운트 될 때 실행되는 함수
     // ready 시킨 후 localStorage에 user 존재하면 자동로그인
-    // 비밀번호가 맞아야 로그인되므로(잡케만 로그인 가능) 로그아웃 구현은 나중에 필요하면 함
     await auth.authStateReady();
     setPersistence(auth, browserLocalPersistence).then(() => {
       auth.onAuthStateChanged((user) => {
