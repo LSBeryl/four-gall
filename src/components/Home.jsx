@@ -210,8 +210,8 @@ export default function Home() {
                 const timeB = b.creationTime ? b.creationTime.seconds : null;
                 return timeB - timeA;
               })
-              .map((v) => (
-                <ShowDataCom>
+              .map((v, i) => (
+                <ShowDataCom key={i}>
                   <div>
                     <span style={{ fontWeight: "bold" }}>{v.id}</span>
                     <WallTime>
