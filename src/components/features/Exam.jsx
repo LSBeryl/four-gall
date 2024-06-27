@@ -129,9 +129,15 @@ export default function Exam() {
               const updateData = { scope: { ...curExam.scope } };
               const sub = prompt("설정할 과목 이름을 입력해주세요.");
               const text = prompt("해당 과목 설명을 입력주세요.");
-              updateData.scope[sub] = text;
-              await updateDoc(doc(db, "exam", id), updateData);
-              setUpdate([...update]);
+              if (sub) {
+                if (text) {
+                  updateData.scope[sub] = text;
+                  await updateDoc(doc(db, "exam", id), updateData);
+                  setUpdate([...update]);
+                } else alert("등록에 실패했습니다.");
+              } else {
+                alert("등록에 실패했습니다.");
+              }
             }}
           >
             +
@@ -139,7 +145,7 @@ export default function Exam() {
         </Title>
         <Scopes>
           {curExam.scope ? (
-            Object.keys(curExam.scope).map((sub, subIdx) => (
+            Object.keys(curExam.scope).map((sub) => (
               <div>
                 <div>{sub}</div>
                 <ScopeLine />
