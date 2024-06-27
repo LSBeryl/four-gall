@@ -141,7 +141,9 @@ export default function Exam() {
           {curExam.scope ? (
             Object.keys(curExam.scope).map((sub, subIdx) => (
               <div>
-                {sub} <ScopeLine /> {curExam.scope[sub]}
+                <div>{sub}</div>
+                <ScopeLine />
+                <div>{curExam.scope[sub]}</div>
               </div>
             ))
           ) : (
@@ -161,7 +163,7 @@ const Header = styled.div`
   flex-wrap: wrap;
   width: ${(props) => props.width};
   gap: ${(props) => (props.size ? "1rem" : "2rem")};
-  padding: 1rem;
+  padding: 1rem 0.3rem;
   & > div {
     font-size: ${(props) => props.size};
   }
@@ -190,6 +192,7 @@ const TimeTableCon = styled.div`
 const ExamTable = styled.table`
   border: 1px solid #eaeaea;
   padding: 1rem;
+  border-radius: 10px;
   & td {
     font-size: ${(props) => props.size};
     padding: ${(props) => (props.size ? "0.5rem" : "1rem")};
@@ -213,9 +216,28 @@ const Title = styled.div`
   gap: 0.8rem;
 `;
 const Scopes = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   & > div {
     display: flex;
     gap: 1rem;
+    border: 1px solid #eaeaea;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    & > div:nth-child(1) {
+      /* 과목 이름 */
+      width: 3rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    & > span {
+      flex-shrink: 0;
+    }
+    & > div:nth-child(2) {
+      line-height: 1.2rem;
+    }
   }
 `;
 
