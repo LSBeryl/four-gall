@@ -221,6 +221,7 @@ const Scopes = styled.div`
   gap: 0.5rem;
   & > div {
     display: flex;
+    align-items: center;
     gap: 1rem;
     border: 1px solid #eaeaea;
     padding: 1rem 1.2rem;
