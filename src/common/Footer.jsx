@@ -34,19 +34,18 @@ export default function Footer() {
     async function eventFunc() {
       let ghostCount = 0;
       while (1) {
-        if (ghostCount >= 12) break;
+        if (ghostCount >= 9) break;
         const randNum = Math.floor(Math.random() * 3 + 1);
         for (let i = 0; i < randNum; i++) await blinkFunc();
         await wait(randNum);
-        if (isPlay) ghostCount += randNum;
-        console.log(isPlay, ghostCount);
+        ghostCount += randNum;
       }
       setBlink(false);
       await wait(2);
       setGhost(true);
     }
 
-    eventFunc();
+    if (isPlay) eventFunc();
   }, [isPlay]);
 
   return (
@@ -131,7 +130,7 @@ const LightBg = styled.div`
   height: 100vh;
   z-index: 12;
   background: ${(props) => (props.ghost ? 'url("img/jy.jpg")' : "")};
-  background-size: 100%;
+  background-size: 80%;
   background-repeat: no-repeat;
   background-position: 50%;
   cursor: none;
