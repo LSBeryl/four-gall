@@ -32,19 +32,23 @@ export default function Footer() {
 
   useEffect(() => {
     async function eventFunc() {
-      setGhost(false);
-      setBlink(true);
-      let ghostCount = 0;
-      while (1) {
-        if (ghostCount >= 9) break;
-        const randNum = Math.floor(Math.random() * 3 + 1);
-        for (let i = 0; i < randNum; i++) await blinkFunc();
-        await wait(randNum);
-        ghostCount += randNum;
+      if (isPlay) {
+        setGhost(false);
+        setBlink(true);
+        let ghostCount = 0;
+        while (1) {
+          if (ghostCount >= 9) break;
+          const randNum = Math.floor(Math.random() * 3 + 1);
+          for (let i = 0; i < randNum; i++) await blinkFunc();
+          await wait(randNum);
+          ghostCount += randNum;
+        }
+        setBlink(false);
+        await wait(2);
+        setGhost(true);
+        await wait(3);
+        location.reload(true);
       }
-      setBlink(false);
-      await wait(2);
-      setGhost(true);
     }
 
     if (isPlay) eventFunc();
@@ -69,15 +73,15 @@ export default function Footer() {
       <LightBg
         ghost={ghost ? "true" : ""}
         onMouseMove={lightMove}
-        onClick={() => {
-          isPlay
-            ? (() => {
-                setPlay(false);
-                setLeft("-50vw");
-                setTop("-50vw");
-              })()
-            : null;
-        }}
+        // onClick={() => {
+        //   isPlay
+        //     ? (() => {
+        //         setPlay(false);
+        //         setLeft("-50vw");
+        //         setTop("-50vw");
+        //       })()
+        //     : null;
+        // }}
         style={{ display: isPlay ? "" : "none" }}
       ></LightBg>
       <Light
