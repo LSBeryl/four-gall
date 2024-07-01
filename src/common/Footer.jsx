@@ -38,7 +38,7 @@ export default function Footer() {
         const randNum = Math.floor(Math.random() * 3 + 1);
         for (let i = 0; i < randNum; i++) await blinkFunc();
         await wait(randNum);
-        ghostCount += randNum;
+        if (isPlay) ghostCount += randNum;
         console.log(ghostCount);
       }
       setBlink(false);
