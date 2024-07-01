@@ -1,17 +1,53 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
   const [left, setLeft] = useState("0");
   const [top, setTop] = useState("0");
+  const [blink, setBlink] = useState(false);
+
+  const [ghost, setGhost] = useState(false);
 
   const [isPlay, setPlay] = useState(false);
+
+  function wait(s) {
+    return new Promise((res) => {
+      setTimeout(res, s * 1000);
+    });
+  }
 
   function lightMove(e) {
     setLeft(`${e.screenX}px`);
     setTop(`${e.screenY}px`);
   }
+
+  async function blinkFunc() {
+    setBlink(true);
+    await wait(0.1);
+    setBlink(false);
+    await wait(0.1);
+    setBlink(true);
+  }
+
+  useEffect(() => {
+    async function eventFunc() {
+      let ghostCount = 0;
+      while (1) {
+        if (ghostCount >= 15) break;
+        const randNum = Math.floor(Math.random() * 3 + 1);
+        for (let i = 0; i < randNum; i++) await blinkFunc();
+        await wait(randNum);
+        ghostCount += randNum;
+        console.log(ghostCount);
+      }
+      setBlink(false);
+      await wait(2);
+      setGhost(true);
+    }
+
+    eventFunc();
+  }, []);
 
   return (
     <Wrap>
@@ -30,6 +66,7 @@ export default function Footer() {
         </Event>
       </div>
       <LightBg
+        ghost={ghost ? "true" : ""}
         onMouseMove={lightMove}
         onClick={() => {
           isPlay
@@ -44,7 +81,9 @@ export default function Footer() {
       ></LightBg>
       <Light
         style={{
-          boxShadow: `inset calc(-100vw + ${left}) calc(-100vw + ${top} - 120px) 50vw 95vw #000`,
+          boxShadow: `inset calc(-100vw + ${left}) calc(-100vw + ${top} - 120px) 50vw ${
+            blink ? "95vw" : "100vw"
+          } #000`,
           display: isPlay ? "" : "none",
         }}
       ></Light>
@@ -91,6 +130,11 @@ const LightBg = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 12;
+  background: ${(props) => (props.ghost ? 'url("img/jy.jpg")' : "")};
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  cursor: none;
 `;
 
 const Light = styled.div`
@@ -99,6 +143,7 @@ const Light = styled.div`
   top: 0;
   width: 200vw;
   height: 200vw;
+  background: #ffd0006b;
   box-shadow: inset -150vw -150vw 50vw 95vw #000;
   z-index: 11;
 `;
