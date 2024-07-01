@@ -132,7 +132,7 @@ const LightBg = styled.div`
   height: 100vh;
   z-index: 12;
   background: ${(props) => (props.ghost ? 'url("img/jy.jpg")' : "")};
-  background-size: 3%;
+  background-size: 80%;
   background-repeat: no-repeat;
   background-position: 50%;
   cursor: none;
