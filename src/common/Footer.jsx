@@ -32,6 +32,8 @@ export default function Footer() {
 
   useEffect(() => {
     async function eventFunc() {
+      setGhost(false);
+      setBlink(true);
       let ghostCount = 0;
       while (1) {
         if (ghostCount >= 9) break;
@@ -130,7 +132,7 @@ const LightBg = styled.div`
   height: 100vh;
   z-index: 12;
   background: ${(props) => (props.ghost ? 'url("img/jy.jpg")' : "")};
-  background-size: 80%;
+  background-size: 3%;
   background-repeat: no-repeat;
   background-position: 50%;
   cursor: none;
