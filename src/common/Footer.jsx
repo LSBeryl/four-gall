@@ -34,12 +34,12 @@ export default function Footer() {
     async function eventFunc() {
       let ghostCount = 0;
       while (1) {
-        if (ghostCount >= 15) break;
+        if (ghostCount >= 12) break;
         const randNum = Math.floor(Math.random() * 3 + 1);
         for (let i = 0; i < randNum; i++) await blinkFunc();
         await wait(randNum);
         if (isPlay) ghostCount += randNum;
-        console.log(ghostCount);
+        console.log(isPlay, ghostCount);
       }
       setBlink(false);
       await wait(2);
@@ -47,7 +47,7 @@ export default function Footer() {
     }
 
     eventFunc();
-  }, []);
+  }, [isPlay]);
 
   return (
     <Wrap>
