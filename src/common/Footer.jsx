@@ -31,6 +31,15 @@ export default function Footer() {
       </div>
       <LightBg
         onMouseMove={lightMove}
+        onClick={() => {
+          isPlay
+            ? (() => {
+                setPlay(false);
+                setLeft("-50vw");
+                setTop("-50vw");
+              })()
+            : null;
+        }}
         style={{ display: isPlay ? "" : "none" }}
       ></LightBg>
       <Light
