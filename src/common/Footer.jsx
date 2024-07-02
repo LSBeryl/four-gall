@@ -46,7 +46,9 @@ export default function Footer() {
         setBlink(false);
         await wait(2);
         setGhost(true);
-        await wait(3);
+        const scream = new Audio("/audio/scream.mp4");
+        scream.play();
+        await wait(2);
         location.reload(true);
       }
     }
