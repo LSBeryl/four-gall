@@ -18,8 +18,8 @@ export default function Footer() {
   }
 
   function lightMove(e) {
-    setLeft(`${e.screenX}px`);
-    setTop(`${e.screenY}px`);
+    setLeft(`${e.clientX}px`);
+    setTop(`${e.clientY + 140}px`);
   }
 
   async function blinkFunc() {
@@ -37,7 +37,7 @@ export default function Footer() {
         setBlink(true);
         let ghostCount = 0;
         while (1) {
-          if (ghostCount >= 9) break;
+          if (ghostCount >= 15) break;
           const randNum = Math.floor(Math.random() * 3 + 1);
           for (let i = 0; i < randNum; i++) await blinkFunc();
           await wait(randNum);
