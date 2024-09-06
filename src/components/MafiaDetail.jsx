@@ -362,7 +362,7 @@ export default function MafiaDetail() {
                 밝혀짐.
               </RuleText>
             </RuleTextContainer>
-            <RuleTitle>E. 승리 조건</RuleTitle>
+            <RuleTitle>4. 승리 조건</RuleTitle>
             <RuleTitle>시민팀 승리 조건 : </RuleTitle>
             <RuleTextContainer>
               <RuleText>
