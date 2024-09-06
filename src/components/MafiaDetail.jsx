@@ -143,7 +143,7 @@ export default function MafiaDetail() {
                 const who = prompt("누가 살았습니까?");
                 const peopleDocSnap = await getDoc(peopleDocRef);
                 const people = peopleDocSnap.data();
-                if (people.live.indexOf(who) != -1) {
+                if (people.dead.indexOf(who) != -1) {
                   await updateDoc(peopleDocRef, {
                     live: arrayUnion(who),
                   });
