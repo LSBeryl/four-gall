@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Footer() {
@@ -10,6 +10,10 @@ export default function Footer() {
   const [ghost, setGhost] = useState(false);
 
   const [isPlay, setPlay] = useState(false);
+
+  const [isMafia, setIsMafia] = useState(false);
+
+  const location = useLocation();
 
   function wait(s) {
     return new Promise((res) => {
@@ -56,8 +60,15 @@ export default function Footer() {
     if (isPlay) eventFunc();
   }, [isPlay]);
 
+  useEffect(() => {
+    if (location.pathname.includes("mafia")) setIsMafia(true);
+    return () => {
+      setIsMafia(false);
+    };
+  }, [location]);
+
   return (
-    <Wrap>
+    <Wrap style={{ display: isMafia ? "none" : "" }}>
       <div>
         오류 및 문의 사항{" "}
         <Yeah to="https://open.kakao.com/o/smWkgmRe">2421 이서현</Yeah>

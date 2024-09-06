@@ -13,6 +13,7 @@ import { db } from "../firebase";
 import { GoogleLogin } from "@react-oauth/google";
 
 import Meal from "./Meal";
+import Mafia from "./Mafia";
 
 function formatTime(t) {
   const wallTime = new Date(t);
@@ -99,6 +100,7 @@ export default function Home() {
   return (
     <>
       <Wrap>
+        <Mafia />
         <Meal />
         <MessageWrap>
           <div

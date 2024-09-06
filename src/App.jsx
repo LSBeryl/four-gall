@@ -22,6 +22,7 @@ import { useState, useEffect } from "react";
 
 import { setPersistence, browserLocalPersistence } from "firebase/auth";
 import { auth } from "./firebase.jsx";
+import MafiaDetail from "./components/MafiaDetail.jsx";
 
 function Layout() {
   return (
@@ -64,6 +65,7 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/feature" element={<Feature />} />
             <Route path="/music" element={<Music />} />
+            <Route path="/mafia" element={<MafiaDetail />} />
           </Route>
         </Routes>
       ) : (
