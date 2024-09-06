@@ -151,6 +151,8 @@ export default function MafiaDetail() {
                     dead: arrayRemove(who),
                   });
                   setUpdate((prev) => [...prev]);
+                } else {
+                  alert("존재하지 않는 사람입니다.");
                 }
               }
               updatePeople();
@@ -173,6 +175,8 @@ export default function MafiaDetail() {
                     dead: arrayUnion(who),
                   });
                   setUpdate((prev) => [...prev]);
+                } else {
+                  alert("존재하지 않는 사람입니다.");
                 }
               }
               updatePeople();
