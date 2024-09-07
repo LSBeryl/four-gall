@@ -8,6 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { ExternalLink } from "lucide-react";
 
 export default function MafiaDetail() {
   const [livePeople, setLivePeople] = useState([]);
@@ -229,6 +230,9 @@ export default function MafiaDetail() {
         </Section>
         <Section>
           <Subtitle>경기 규칙</Subtitle>
+          <RulePDF href="/mafia_rule.pdf" target="_blank">
+            규칙 pdf <ExternalLink size={"1rem"} />
+          </RulePDF>
           <Rule>
             <RuleTitle>1. 기본 규칙</RuleTitle>
             <RuleTextContainer>
@@ -545,4 +549,10 @@ const Admin = styled.div`
 const AdminContainer = styled.div`
   display: flex;
   gap: 1rem;
+`;
+
+const RulePDF = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
 `;
