@@ -18,8 +18,9 @@ export default function MafiaDetail() {
 
   const [pwCount, setPwCount] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isKeyDown, setIsKeyDown] = useState(false);
 
-  const password = "rlaalstjWkd"; // "김민서짱"
+  const password = import.meta.env.VITE_MAFIA_PW;
   const we = [
     "강민상",
     "고준기",
@@ -75,18 +76,35 @@ export default function MafiaDetail() {
     getLiveAndDead();
   }, [update]);
 
-  window.addEventListener("keydown", (e) => {
-    if (!isAdmin) {
-      const pwArray = password.split("");
-      if (e.key == pwArray[pwCount]) {
-        if (pwCount + 1 == pwArray.length) {
-          setIsAdmin(true);
-        }
-        setPwCount((prev) => prev + 1);
+  useEffect(() => {
+    const keyDownEvent = (e) => {
+      if (!isAdmin && !isKeyDown) {
+        setIsKeyDown(true);
+        console.log(e.key == password.charAt(pwCount));
+        console.log(pwCount);
+        if (e.key == password.charAt(pwCount)) {
+          if (pwCount + 1 == password.length) {
+            setIsAdmin(true);
+          }
+          setPwCount((prev) => prev + 1);
+        } else setPwCount(0);
+        if (e.key == "-") setPwCount(0);
       }
-      if (e.key == "-") setPwCount(0);
-    }
-  });
+    };
+
+    const keyUpEvent = async (e) => {
+      if (!isAdmin && isKeyDown) {
+        setIsKeyDown(false);
+      }
+    };
+
+    window.addEventListener("keydown", keyDownEvent);
+    window.addEventListener("keyup", keyUpEvent);
+    return () => {
+      window.removeEventListener("keydown", keyDownEvent);
+      window.removeEventListener("keyup", keyUpEvent);
+    };
+  }, [isKeyDown, pwCount]);
 
   async function allLive() {
     await Promise.all(
