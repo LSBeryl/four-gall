@@ -312,8 +312,7 @@ export default function MafiaDetail() {
                   <RuleText>
                     시민 18명{" "}
                     <span>
-                      (매 처형시간마다 모두가 투표를 함, 하지만 시민의 표만
-                      결과에 영향을 끼침)
+                      (시민 전용 특수카드 사용 가능, 공개채용 지원 가능)
                     </span>
                   </RuleText>
                 </RuleTextContainer>
@@ -402,10 +401,6 @@ export default function MafiaDetail() {
               <RuleText>
                 게임이 끝나는 날까지 마피아 4명 중 한명이라도 살아있을 시
                 마피아팀 승리
-              </RuleText>
-              <RuleText>
-                혹은 모든 시민(시민 팀이 아닌 오로지 ‘시민’)이 모두 죽을 경우
-                승리
               </RuleText>
             </RuleTextContainer>
           </Rule>
