@@ -235,12 +235,6 @@ export default function MafiaDetail() {
                 ))}
               </div>
             </div>
-            <div>
-              <div>실종자 (1명)</div>
-              <div>
-                <div>김민서</div>
-              </div>
-            </div>
           </LiveDeathTable>
         </Section>
         <Section>
@@ -513,7 +507,7 @@ const LiveDeathTable = styled.div`
   box-sizing: border-box;
   padding: 2rem;
   & > div {
-    width: 33%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
