@@ -77,15 +77,6 @@ export default function MafiaDetail() {
   }, [update]);
 
   useEffect(() => {
-    const updateInterval = setInterval(() => {
-      setUpdate((prev) => [...prev]);
-    }, 100);
-    return () => {
-      clearInterval(updateInterval);
-    };
-  }, []);
-
-  useEffect(() => {
     const keyDownEvent = (e) => {
       if (!isAdmin && !isKeyDown) {
         setIsKeyDown(true);
