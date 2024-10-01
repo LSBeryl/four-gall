@@ -100,7 +100,7 @@ export default function Home() {
   return (
     <>
       <Wrap>
-        <Mafia />
+        {/* <Mafia /> */}
         <Meal />
         <MessageWrap>
           <div
