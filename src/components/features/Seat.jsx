@@ -146,7 +146,7 @@ export default function Seat() {
             }
             while (i <= 0.5) {
               change();
-              i += 0.02;
+              i += 0.04;
               await wait(i);
             }
             await wait(1);
